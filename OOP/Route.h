@@ -1,0 +1,87 @@
+#pragma once
+
+#include <iostream>
+#include <string>
+
+class Route
+{
+private:
+	std::string start_; // Название начального пункта маршрута.
+	std::string finish_; // Название конечного пункта маршрута.
+	unsigned int routeNumber_; // Номер маршрута.
+public:
+#pragma region Конструкторы и деструктор.
+	// Конструктор без параметров.
+	Route();
+
+	// Конструктор с параметрами.
+	Route(const std::string& start, const std::string& finish, int routeNumber);
+
+	// Конструктор копирования.
+	Route(const Route& r);
+
+	// Деструктор.
+	~Route();
+#pragma endregion
+
+#pragma region Геттеры и сеттеры.
+	// Получить название начального пункта маршрута.
+	std::string getStart() const;
+
+	// Получить название конечного пункта маршрута.
+	std::string getFinish() const;
+
+	// Получить номер маршрута.
+	unsigned int getRouteNumber() const;
+
+	// Установить название начального пункта маршрута.
+	void setStart(const std::string& start);
+
+	// Установить название конечного пункта маршрута.
+	void setFinish(const std::string& finish);
+
+	// Установить номер маршрута.
+	void setRouteNumber(unsigned int routeNumber);
+#pragma endregion
+
+#pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 
+	// Перегрузка оператора присваивания.
+	Route operator= (const Route& r2);
+
+	// Перегрузка опреатора равенства.
+	bool operator==(const Route& r2) const;
+
+	// Перегрузка опреатора неравенства.
+	bool operator!=(const Route& r2) const;
+
+	// Перегрузка опретора больше.
+	bool operator>(const Route& r2) const;
+
+	// Перегрузка опретора меньше.
+	bool operator<(const Route& r2) const;
+
+	// Перегрузка опретора больше или равно.
+	bool operator>=(const Route& r2) const;
+
+	// Перегрузка опретора меньше или равно.
+	bool operator<=(const Route& r2) const;
+#pragma endregion
+
+#pragma region Перегрузка ++ -- и потока.
+	// Перегрузка оператора префиксного инкремента.
+	Route operator++();
+	// Перегрузка оператора постфиксного инкремента.
+	Route operator++(int notused);
+
+	// Перегрузка оператора префиксного декремента.
+	Route operator--();
+	// Перегрузка оператора постфиксного декремента.
+	Route operator--(int notused);
+
+	// Перегрузка оператора <<. 
+	friend std::ostream& operator<< (std::ostream& out, const Route& r);
+
+	// Перегрузка оператора >>.
+	friend std::istream& operator>> (std::istream& in, Route& r);
+#pragma endregion
+};

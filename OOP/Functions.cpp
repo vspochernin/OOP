@@ -50,7 +50,7 @@ void showRouteArray(Route routes[], size_t size, std::ostream& out)
 size_t getIndexOfMaxRoute(Route routes[], size_t size)
 {
 	size_t indexMax = 0;
-	unsigned int maxRouteNumber = 0;
+	int maxRouteNumber = 0;
 	for (size_t i = 0; i < size; i++)
 	{
 		if (routes[i].getRouteNumber() > maxRouteNumber)
@@ -66,7 +66,7 @@ size_t getIndexOfMaxRoute(Route routes[], size_t size)
 size_t getIndexOfMinRoute(Route routes[], size_t size)
 {
 	size_t indexMin = 0;
-	unsigned int minRouteNumber = INT_MAX;
+	int minRouteNumber = INT_MAX;
 	for (size_t i = 0; i < size; i++)
 	{
 		if (routes[i].getRouteNumber() < minRouteNumber)

@@ -1,15 +1,36 @@
 #include <iomanip>
 #include "Route.h"
+#include "MyExceptions.h"
 
 #pragma region Конструкторы и деструктор.
 // Конструктор без параметров.
-Route::Route() : start_(""), finish_(""), routeNumber_(0) {}
+Route::Route() : start_(""), finish_("В парк"), routeNumber_(0) {}
 
 // Конструктор с параметрами.
-Route::Route(const std::string& start, const std::string& finish, int routeNumber) : start_(start), finish_(finish), routeNumber_(routeNumber) {}
+Route::Route(const std::string& start, const std::string& finish, int routeNumber) : start_(start), finish_(finish), routeNumber_(routeNumber)
+{
+	if (this->routeNumber_ <= 0)
+	{
+		throw InvalidRoute("Неправильный номер машрута.");
+	}
+	if ((this->start_ == "") || (this->finish_ == ""))
+	{
+		throw InvalidRoute("Пустое название пунктов маршрута.");
+	}
+}
 
 // Конструктор копирования.
-Route::Route(const Route& r) : start_(r.start_), finish_(r.finish_), routeNumber_(r.routeNumber_) {}
+Route::Route(const Route& r) : start_(r.start_), finish_(r.finish_), routeNumber_(r.routeNumber_)
+{
+	if (this->routeNumber_ <= 0)
+	{
+		throw InvalidRoute("Неправильный номер машрута при копировании.");
+	}
+	if ((this->start_ == "") || (this->finish_ == ""))
+	{
+		throw InvalidRoute("Пустое название пунктов маршрута при копировании.");
+	}
+}
 
 // Деструктор.
 Route::~Route() {}
@@ -29,7 +50,7 @@ std::string Route::getFinish() const
 }
 
 // Получить номер маршрута.
-unsigned int Route::getRouteNumber() const
+int Route::getRouteNumber() const
 {
 	return this->routeNumber_;
 }
@@ -38,18 +59,38 @@ unsigned int Route::getRouteNumber() const
 void Route::setStart(const std::string& start)
 {
 	this->start_ = start;
+	if (this->start_ == "")
+	{
+		throw(InvalidRoute("Пустое название начала маршрута."));
+	}
 }
 
 // Установить название конечного пункта маршрута.
 void Route::setFinish(const std::string& finish)
 {
 	this->finish_ = finish;
+	if (this->finish_ == "")
+	{
+		throw(InvalidRoute("Пустое название конца маршрута."));
+	}
 }
 
 // Установить номер маршрута.
-void Route::setRouteNumber(unsigned int routeNumber)
+void Route::setRouteNumber(int routeNumber)
 {
 	this->routeNumber_ = routeNumber;
+	if (this->routeNumber_ <= 0)
+	{
+		throw(InvalidRoute("Неправильный номер машрута."));
+	}
+}
+
+// Превратить маршрут в маршрут в парк.
+void Route::toThePark()
+{
+	this->start_ = "";
+	this->finish_ = "В парк";
+	this->routeNumber_ = 0;
 }
 #pragma endregion
 
@@ -65,6 +106,16 @@ Route Route::operator= (const Route& r2)
 	this->start_ = r2.start_;
 	this->finish_ = r2.finish_;
 	this->routeNumber_ = r2.routeNumber_;
+
+	if (this->routeNumber_ <= 0)
+	{
+		throw InvalidRoute("Неправильный номер машрута при присваивании.");
+	}
+	if ((this->start_ == "") || (this->finish_ == ""))
+	{
+		throw InvalidRoute("Пустое название пунктов маршрута при присваивании.");
+	}
+
 	return *this;
 }
 

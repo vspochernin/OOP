@@ -8,7 +8,7 @@ class Route
 private:
 	std::string start_; // Название начального пункта маршрута.
 	std::string finish_; // Название конечного пункта маршрута.
-	unsigned int routeNumber_; // Номер маршрута.
+	int routeNumber_; // Номер маршрута.
 public:
 #pragma region Конструкторы и деструктор.
 	// Конструктор без параметров.
@@ -32,7 +32,7 @@ public:
 	std::string getFinish() const;
 
 	// Получить номер маршрута.
-	unsigned int getRouteNumber() const;
+	int getRouteNumber() const;
 
 	// Установить название начального пункта маршрута.
 	void setStart(const std::string& start);
@@ -41,7 +41,10 @@ public:
 	void setFinish(const std::string& finish);
 
 	// Установить номер маршрута.
-	void setRouteNumber(unsigned int routeNumber);
+	void setRouteNumber(int routeNumber);
+
+	// Превратить маршрут в маршрут в парк.
+	void toThePark();
 #pragma endregion
 
 #pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 

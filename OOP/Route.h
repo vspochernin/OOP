@@ -9,14 +9,14 @@ class Route
 private:
   std::string start_; // Название начального пункта маршрута.
   std::string finish_; // Название конечного пункта маршрута.
-  int routeNumber_; // Номер маршрута.
+  int number_; // Номер маршрута.
 public:
 #pragma region Конструкторы и деструктор.
   // Конструктор без параметров.
   Route();
 
   // Конструктор с параметрами.
-  Route(const std::string& start, const std::string& finish, int routeNumber);
+  Route(const std::string& start, const std::string& finish, int number);
 
   // Конструктор копирования.
   Route(const Route& route);
@@ -33,7 +33,7 @@ public:
   std::string getFinish() const;
 
   // Получить номер маршрута.
-  int getRouteNumber() const;
+  int getNumber() const;
 
   // Установить название начального пункта маршрута.
   void setStart(const std::string& start);
@@ -42,7 +42,7 @@ public:
   void setFinish(const std::string& finish);
 
   // Установить номер маршрута.
-  void setRouteNumber(int routeNumber);
+  void setNumber(int number);
 
   // Превратить маршрут в маршрут в парк.
   void toThePark();

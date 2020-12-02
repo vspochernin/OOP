@@ -5,12 +5,12 @@
 
 #pragma region Конструкторы и деструктор.
 // Конструктор без параметров.
-Route::Route() : start_(""), finish_("В парк"), routeNumber_(0) {}
+Route::Route() : start_(""), finish_("В парк"), number_(0) {}
 
 // Конструктор с параметрами.
-Route::Route(const std::string& start, const std::string& finish, int routeNumber) : start_(start), finish_(finish), routeNumber_(routeNumber)
+Route::Route(const std::string& start, const std::string& finish, int number) : start_(start), finish_(finish), number_(number)
 {
-  if (routeNumber_ <= 0)
+  if (number_ <= 0)
   {
     throw InvalidRoute("Неправильный номер машрута.");
   }
@@ -21,9 +21,9 @@ Route::Route(const std::string& start, const std::string& finish, int routeNumbe
 }
 
 // Конструктор копирования.
-Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_), routeNumber_(route.routeNumber_)
+Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_), number_(route.number_)
 {
-  if (routeNumber_ <= 0)
+  if (number_ <= 0)
   {
     throw InvalidRoute("Неправильный номер машрута при копировании.");
   }
@@ -51,9 +51,9 @@ std::string Route::getFinish() const
 }
 
 // Получить номер маршрута.
-int Route::getRouteNumber() const
+int Route::getNumber() const
 {
-  return routeNumber_;
+  return number_;
 }
 
 // Установить название начального пункта маршрута.
@@ -77,10 +77,10 @@ void Route::setFinish(const std::string& finish)
 }
 
 // Установить номер маршрута.
-void Route::setRouteNumber(int routeNumber)
+void Route::setNumber(int number)
 {
-  routeNumber_ = routeNumber;
-  if (routeNumber_ <= 0)
+  number_ = number;
+  if (number_ <= 0)
   {
     throw(InvalidRoute("Неправильный номер машрута."));
   }
@@ -91,7 +91,7 @@ void Route::toThePark()
 {
   start_ = "";
   finish_ = "В парк";
-  routeNumber_ = 0;
+  number_ = 0;
 }
 #pragma endregion
 
@@ -107,9 +107,9 @@ Route Route::operator= (const Route& route2)
 
   start_ = route2.start_;
   finish_ = route2.finish_;
-  routeNumber_ = route2.routeNumber_;
+  number_ = route2.number_;
 
-  if (routeNumber_ <= 0)
+  if (number_ <= 0)
   {
     throw InvalidRoute("Неправильный номер машрута при присваивании.");
   }
@@ -124,37 +124,37 @@ Route Route::operator= (const Route& route2)
 // Перегрузка опреатора равенства.
 bool Route::operator==(const Route& route2) const
 {
-  return ((start_ == route2.start_) && (finish_ == route2.finish_) && (routeNumber_ == route2.routeNumber_));
+  return ((start_ == route2.start_) && (finish_ == route2.finish_) && (number_ == route2.number_));
 }
 
 // Перегрузка опреатора неравенства.
 bool Route::operator!=(const Route& route2) const
 {
-  return ((start_ != route2.start_) || (finish_ != route2.finish_) || (routeNumber_ != route2.routeNumber_));
+  return ((start_ != route2.start_) || (finish_ != route2.finish_) || (number_ != route2.number_));
 }
 
 // Перегрузка опретора больше.
 bool Route::operator>(const Route& route2) const
 {
-  return (routeNumber_ > route2.routeNumber_);
+  return (number_ > route2.number_);
 }
 
 // Перегрузка опретора меньше.
 bool Route::operator<(const Route& route2) const
 {
-  return (routeNumber_ < route2.routeNumber_);
+  return (number_ < route2.number_);
 }
 
 // Перегрузка опретора больше или равно.
 bool Route::operator>=(const Route& route2) const
 {
-  return (routeNumber_ >= route2.routeNumber_);
+  return (number_ >= route2.number_);
 }
 
 // Перегрузка опретора меньше или равно.
 bool Route::operator<=(const Route& route2) const
 {
-  return (routeNumber_ <= route2.routeNumber_);
+  return (number_ <= route2.number_);
 }
 #pragma endregion
 
@@ -162,7 +162,7 @@ bool Route::operator<=(const Route& route2) const
 // Перегрузка оператора префиксного инкремента.
 Route Route::operator++()
 {
-  routeNumber_ += 1;
+  number_ += 1;
   return *this;
 }
 
@@ -170,14 +170,14 @@ Route Route::operator++()
 Route Route::operator++(int notused)
 {
   Route temp = Route(*this);
-  routeNumber_ += 1;
+  number_ += 1;
   return temp;
 }
 
 // Перегрузка оператора префиксного декремента.
 Route Route::operator--()
 {
-  routeNumber_ -= 1;
+  number_ -= 1;
   return *this;
 }
 
@@ -185,20 +185,20 @@ Route Route::operator--()
 Route Route::operator--(int notused)
 {
   Route temp = Route(*this);
-  routeNumber_ -= 1;
+  number_ -= 1;
   return temp;
 }
 
 // Перегрузка оператора <<. 
 std::ostream& operator<< (std::ostream& out, const Route& route)
 {
-  return (out << '|' << std::setw(14) << route.routeNumber_ << '|' << std::setw(15) << route.start_ << '|' << std::setw(14) << route.finish_ << '|');
+  return (out << '|' << std::setw(14) << route.number_ << '|' << std::setw(15) << route.start_ << '|' << std::setw(14) << route.finish_ << '|');
 }
 
 // Перегрузка оператора >>.
 std::istream& operator>> (std::istream& in, Route& route)
 {
-  return (in >> route.routeNumber_ >> route.start_ >> route.finish_);
+  return (in >> route.number_ >> route.start_ >> route.finish_);
 }
 #pragma endregion
 

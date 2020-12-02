@@ -2,7 +2,6 @@
 // Вариант 11.
 // TODO: Проверить правильности ввода, в частности проверить открытие файла
 // TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
-// TODO: Изменить поле routeNumber_ на number_
 
 #include <iostream>
 #include <fstream>
@@ -24,8 +23,8 @@ int main()
   fout << "Изначальный массив:" << std::endl;
   showRouteArray(routes, nRoutes, fout);
 
-  fout << std::endl << "Максимальный номер маршрута: " << getMaxRoute(routes, nRoutes).getRouteNumber();
-  fout << std::endl << "Минимальный номер маршрута: " << getMinRoute(routes, nRoutes).getRouteNumber() << std::endl << std::endl;
+  fout << std::endl << "Максимальный номер маршрута: " << getMaxRoute(routes, nRoutes).getNumber();
+  fout << std::endl << "Минимальный номер маршрута: " << getMinRoute(routes, nRoutes).getNumber() << std::endl << std::endl;
 
   sortArray(routes, nRoutes);
   fout << "Массив после сортировки:" << std::endl;
@@ -49,7 +48,7 @@ int main()
 
     //Route badRoute2 = nullRoute; // Проверка исключения в конструкторе копирования.
 
-    //nullRoute.setRouteNumber(-13); // Проверка исключения в сеттерах.
+    //nullRoute.setNumber(-13); // Проверка исключения в сеттерах.
 
     Route normRoute = Route("Начало", "Конец", 123);
     //normRoute = nullRoute; // Проверка исключения в операторе присваивания.

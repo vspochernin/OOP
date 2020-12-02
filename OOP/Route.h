@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ROUTE
+#define ROUTE
 
 #include <iostream>
 #include <string>
@@ -88,3 +89,5 @@ public:
 	friend std::istream& operator>> (std::istream& in, Route& r);
 #pragma endregion
 };
+
+#endif

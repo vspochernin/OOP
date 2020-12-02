@@ -1,8 +1,8 @@
 // Почернин Владислав Сергеевич.
 // Вариант 11.
-// Класс исключений сделать хотя бы одно исключение - мне про то, чтобы номер маршрута был больше нуля (или неотрицательный, но тогда в присваивании тоже проверить).
-// Применять его применять при определении (конструктор с параметрами) и сеттерах (т.е. всегда, когда меняем поле номера маршрута).
-// Кароче для доп баллов - класс строк и шаблон массива.
+// TODO: Проверить правильности ввода, в частности проверить открытие файла
+// TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
+// TODO: Убрать лишние this
 
 #include <iostream>
 #include <fstream>
@@ -23,10 +23,8 @@ int main()
 	fout << "Изначальный массив:" << std::endl;
 	showRouteArray(routes, nRoutes, fout);
 
-	fout << std::endl << "Максимальный по номеру маршрут - это маршрут №" << getIndexOfMaxRoute(routes, nRoutes) + 1 << ". Его номер: " <<
-		routes[getIndexOfMaxRoute(routes, nRoutes)].getRouteNumber();
-	fout << std::endl << "Минимальный по номеру маршрут - это маршрут №" << getIndexOfMinRoute(routes, nRoutes) + 1 << ". Его номер: " <<
-		routes[getIndexOfMinRoute(routes, nRoutes)].getRouteNumber() << std::endl << std::endl;
+	fout << std::endl << "Максимальный номер маршрута: " << getMaxRoute(routes, nRoutes).getRouteNumber();
+	fout << std::endl << "Минимальный номер маршрута: " << getMinRoute(routes, nRoutes).getRouteNumber() << std::endl << std::endl;
 
 	sortArray(routes, nRoutes);
 	fout << "Массив после сортировки:" << std::endl;
@@ -42,7 +40,6 @@ int main()
 	fout.close();
 
 	// Проверка работы исключений.
-	// TODO: Надо ли код выше как-то обрабатывать (исключениями)?
 	try
 	{
 		Route nullRoute = Route();

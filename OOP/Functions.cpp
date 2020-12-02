@@ -47,62 +47,47 @@ void showRouteArray(Route routes[], size_t size, std::ostream& out)
 }
 
 // Получить индекс максимального по номера маршрута из массива.
-size_t getIndexOfMaxRoute(Route routes[], size_t size)
+Route getMaxRoute(Route routes[], size_t size)
 {
-	size_t indexMax = 0;
-	int maxRouteNumber = 0;
+	Route max = routes[0];
 	for (size_t i = 0; i < size; i++)
 	{
-		if (routes[i].getRouteNumber() > maxRouteNumber)
+		if (routes[i] > max)
 		{
-			maxRouteNumber = routes[i].getRouteNumber();
-			indexMax = i;
+			max = routes[i];
 		}
 	}
-	return indexMax;
+	return max;
 }
 
 // Получить индекс минимального по номера маршрута из массива.
-size_t getIndexOfMinRoute(Route routes[], size_t size)
+Route getMinRoute(Route routes[], size_t size)
 {
-	size_t indexMin = 0;
-	int minRouteNumber = INT_MAX;
+	Route min = routes[0];
 	for (size_t i = 0; i < size; i++)
 	{
-		if (routes[i].getRouteNumber() < minRouteNumber)
+		if (routes[i] < min)
 		{
-			minRouteNumber = routes[i].getRouteNumber();
-			indexMin = i;
+			min = routes[i];
 		}
 	}
-	return indexMin;
+	return min;
 }
 
 #pragma region Вектор пар.
-// Проверить, есть ли в векторе пар элемент с ключем key?
-bool isContainsKey(const std::vector<std::pair<std::string, int>>& pairs, const std::string& key)
+// Определить, есть ли в векторе пар элемент с ключем key. Если есть - положить его в переменную index.
+bool indexOfKey(const std::vector<std::pair<std::string, int>>& pairs, const std::string& key, size_t& index)
 {
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
 		if (pairs[i].first == key)
 		{
+			index = i;
 			return true;
 		}
 	}
 
 	return false;
-}
-
-// Получить индекс элемента вектора пар с ключем key (подразумевается, что пара с таким ключем в векторе есть).
-size_t getIndexOfKey(const std::vector<std::pair<std::string, int>>& pairs, const std::string& key)
-{
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		if (pairs[i].first == key)
-		{
-			return i;
-		}
-	}
 }
 
 // Сортировка вектора пар по значению.
@@ -113,7 +98,7 @@ void sortPairs(std::vector<std::pair<std::string, int>>& pairs)
 	{
 		return;
 	}
-	for (int i = 1; i < pairs.size(); i++) // Для каждого следующего неотсортированного элемента найдем его место.
+	for (int i = 1; i < static_cast<int>(pairs.size()); i++) // Для каждого следующего неотсортированного элемента найдем его место.
 	{
 		std::pair<std::string, int> temp = pairs[i];
 		int j = 0;
@@ -129,11 +114,12 @@ void sortPairs(std::vector<std::pair<std::string, int>>& pairs)
 // Заполнить вектор пар из массива.
 void setPairs(std::vector<std::pair<std::string, int>>& pairs, Route* routes, size_t size)
 {
+	size_t index = 0;
 	for (size_t i = 0; i < size; i++)
 	{
-		if (isContainsKey(pairs, routes[i].getFinish()))
+		if (indexOfKey(pairs, routes[i].getFinish(), index))
 		{
-			pairs[getIndexOfKey(pairs, routes[i].getFinish())].second++;
+			pairs[index].second++;
 		}
 		else
 		{

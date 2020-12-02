@@ -1,5 +1,7 @@
+#ifndef MY_EXCEPTIONS
+#define MY_EXCEPTIONS
+
 // Классы исключений.
-#pragma once
 
 #include <exception>
 #include <string>
@@ -16,3 +18,5 @@ public:
 		return errorMessage_.c_str();
 	}
 };
+
+#endif

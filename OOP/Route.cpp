@@ -169,7 +169,7 @@ Route Route::operator++(int notused)
 {
 	Route temp = Route(*this);
 	this->routeNumber_ += 1;
-	return *this;
+	return temp;
 }
 
 // Перегрузка оператора префиксного декремента.
@@ -184,7 +184,7 @@ Route Route::operator--(int notused)
 {
 	Route temp = Route(*this);
 	this->routeNumber_ -= 1;
-	return *this;
+	return temp;
 }
 
 // Перегрузка оператора <<. 

@@ -75,7 +75,9 @@ Route getMinRoute(Route routes[], size_t size)
   return min;
 }
 
+#ifdef _MSC_VER
 #pragma region Вектор пар.
+#endif
 // Определить, есть ли в векторе пар элемент с ключем key. Если есть - положить его в переменную index.
 bool indexOfKey(const std::vector<std::pair<std::string, int>>& pairs, const std::string& key, size_t& index)
 {
@@ -140,4 +142,6 @@ void showPairs(const std::vector<std::pair<std::string, int>>& pairs, std::ostre
   }
   out << "-------------------------------" << std::endl;
 }
+#ifdef _MSC_VER
 #pragma endregion
+#endif

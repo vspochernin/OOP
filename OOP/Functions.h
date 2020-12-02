@@ -42,7 +42,9 @@ void sortArray(T a[], int size)
   }
 }
 
+#ifdef _MSC_VER
 #pragma region Вектор пар.
+#endif
 // Определить, есть ли в векторе пар элемент с ключем key. Если есть - положить его в переменную index.
 bool indexOfKey(const std::vector<std::pair<std::string, int>>& pairs, const std::string& key, size_t& index);
 
@@ -54,6 +56,8 @@ void setPairs(std::vector<std::pair<std::string, int>>& pairs, Route* routes, si
 
 // Вывести вектор пар в поток вывода.
 void showPairs(const std::vector<std::pair<std::string, int>>& pairs, std::ostream& out);
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
 #endif

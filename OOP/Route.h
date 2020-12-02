@@ -11,7 +11,9 @@ private:
   std::string finish_; // Название конечного пункта маршрута.
   int number_; // Номер маршрута.
 public:
+#ifdef _MSC_VER
 #pragma region Конструкторы и деструктор.
+#endif
   // Конструктор без параметров.
   Route();
 
@@ -23,9 +25,13 @@ public:
 
   // Деструктор.
   ~Route();
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
+#ifdef _MSC_VER
 #pragma region Геттеры и сеттеры.
+#endif
   // Получить название начального пункта маршрута.
   std::string getStart() const;
 
@@ -46,9 +52,13 @@ public:
 
   // Превратить маршрут в маршрут в парк.
   void toThePark();
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
+#ifdef _MSC_VER
 #pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 
+#endif
   // Перегрузка оператора присваивания.
   Route operator= (const Route& route2);
 
@@ -69,9 +79,13 @@ public:
 
   // Перегрузка опретора меньше или равно.
   bool operator<=(const Route& route2) const;
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
+#ifdef _MSC_VER
 #pragma region Перегрузка ++ -- и потока.
+#endif
   // Перегрузка оператора префиксного инкремента.
   Route operator++();
   // Перегрузка оператора постфиксного инкремента.
@@ -87,7 +101,9 @@ public:
 
   // Перегрузка оператора >>.
   friend std::istream& operator>> (std::istream& in, Route& route);
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 };
 
 #endif

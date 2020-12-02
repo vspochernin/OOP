@@ -3,7 +3,9 @@
 #include "Route.h"
 #include "MyExceptions.h"
 
+#ifdef _MSC_VER
 #pragma region Конструкторы и деструктор.
+#endif
 // Конструктор без параметров.
 Route::Route() : start_(""), finish_("В парк"), number_(0) {}
 
@@ -35,9 +37,13 @@ Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_),
 
 // Деструктор.
 Route::~Route() {}
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
+#ifdef _MSC_VER
 #pragma region Геттеры и сеттеры.
+#endif
 // Получить название начального пункта маршрута.
 std::string Route::getStart() const
 {
@@ -93,10 +99,14 @@ void Route::toThePark()
   finish_ = "В парк";
   number_ = 0;
 }
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
 
+#ifdef _MSC_VER
 #pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 
+#endif
 // Перегрузка оператора присваивания.
 Route Route::operator= (const Route& route2)
 {
@@ -156,9 +166,13 @@ bool Route::operator<=(const Route& route2) const
 {
   return (number_ <= route2.number_);
 }
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 
+#ifdef _MSC_VER
 #pragma region Перегрузка ++ -- и потока.
+#endif
 // Перегрузка оператора префиксного инкремента.
 Route Route::operator++()
 {
@@ -200,5 +214,7 @@ std::istream& operator>> (std::istream& in, Route& route)
 {
   return (in >> route.number_ >> route.start_ >> route.finish_);
 }
+#ifdef _MSC_VER
 #pragma endregion
+#endif
 

@@ -1,4 +1,5 @@
 #include <iomanip>
+
 #include "Route.h"
 #include "MyExceptions.h"
 
@@ -20,7 +21,7 @@ Route::Route(const std::string& start, const std::string& finish, int routeNumbe
 }
 
 // Конструктор копирования.
-Route::Route(const Route& r) : start_(r.start_), finish_(r.finish_), routeNumber_(r.routeNumber_)
+Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_), routeNumber_(route.routeNumber_)
 {
 	if (routeNumber_ <= 0)
 	{
@@ -97,16 +98,16 @@ void Route::toThePark()
 
 #pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 
 // Перегрузка оператора присваивания.
-Route Route::operator= (const Route& r2)
+Route Route::operator= (const Route& route2)
 {
-	if (this == &r2)
+	if (this == &route2)
 	{
 		return *this;
 	}
 
-	start_ = r2.start_;
-	finish_ = r2.finish_;
-	routeNumber_ = r2.routeNumber_;
+	start_ = route2.start_;
+	finish_ = route2.finish_;
+	routeNumber_ = route2.routeNumber_;
 
 	if (routeNumber_ <= 0)
 	{
@@ -121,39 +122,39 @@ Route Route::operator= (const Route& r2)
 }
 
 // Перегрузка опреатора равенства.
-bool Route::operator==(const Route& r2) const
+bool Route::operator==(const Route& route2) const
 {
-	return ((start_ == r2.start_) && (finish_ == r2.finish_) && (routeNumber_ == r2.routeNumber_));
+	return ((start_ == route2.start_) && (finish_ == route2.finish_) && (routeNumber_ == route2.routeNumber_));
 }
 
 // Перегрузка опреатора неравенства.
-bool Route::operator!=(const Route& r2) const
+bool Route::operator!=(const Route& route2) const
 {
-	return ((start_ != r2.start_) || (finish_ != r2.finish_) || (routeNumber_ != r2.routeNumber_));
+	return ((start_ != route2.start_) || (finish_ != route2.finish_) || (routeNumber_ != route2.routeNumber_));
 }
 
 // Перегрузка опретора больше.
-bool Route::operator>(const Route& r2) const
+bool Route::operator>(const Route& route2) const
 {
-	return (routeNumber_ > r2.routeNumber_);
+	return (routeNumber_ > route2.routeNumber_);
 }
 
 // Перегрузка опретора меньше.
-bool Route::operator<(const Route& r2) const
+bool Route::operator<(const Route& route2) const
 {
-	return (routeNumber_ < r2.routeNumber_);
+	return (routeNumber_ < route2.routeNumber_);
 }
 
 // Перегрузка опретора больше или равно.
-bool Route::operator>=(const Route& r2) const
+bool Route::operator>=(const Route& route2) const
 {
-	return (routeNumber_ >= r2.routeNumber_);
+	return (routeNumber_ >= route2.routeNumber_);
 }
 
 // Перегрузка опретора меньше или равно.
-bool Route::operator<=(const Route& r2) const
+bool Route::operator<=(const Route& route2) const
 {
-	return (routeNumber_ <= r2.routeNumber_);
+	return (routeNumber_ <= route2.routeNumber_);
 }
 #pragma endregion
 
@@ -189,15 +190,15 @@ Route Route::operator--(int notused)
 }
 
 // Перегрузка оператора <<. 
-std::ostream& operator<< (std::ostream& out, const Route& r)
+std::ostream& operator<< (std::ostream& out, const Route& route)
 {
-	return (out << '|' << std::setw(14) << r.routeNumber_ << '|' << std::setw(15) << r.start_ << '|' << std::setw(14) << r.finish_ << '|');
+	return (out << '|' << std::setw(14) << route.routeNumber_ << '|' << std::setw(15) << route.start_ << '|' << std::setw(14) << route.finish_ << '|');
 }
 
 // Перегрузка оператора >>.
-std::istream& operator>> (std::istream& in, Route& r)
+std::istream& operator>> (std::istream& in, Route& route)
 {
-	return (in >> r.routeNumber_ >> r.start_ >> r.finish_);
+	return (in >> route.routeNumber_ >> route.start_ >> route.finish_);
 }
 #pragma endregion
 

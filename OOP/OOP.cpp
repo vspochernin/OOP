@@ -2,10 +2,12 @@
 // Вариант 11.
 // TODO: Проверить правильности ввода, в частности проверить открытие файла
 // TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
+// TODO: Изменить поле routeNumber_ на number_
 
 #include <iostream>
 #include <fstream>
 #include <vector>
+
 #include "Route.h"
 #include "Functions.h"
 #include "MyExceptions.h"

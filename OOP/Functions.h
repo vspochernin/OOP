@@ -1,8 +1,9 @@
 #ifndef FUNCTIONS
 #define FUNCTIONS
 
-#include "Route.h"
 #include <vector>
+
+#include "Route.h"
 
 // Заполнить массив маршрутов из файла. (Встроенный С++ массив)
 void fillArrayByFile(Route routes[], size_t size, std::string fileName);

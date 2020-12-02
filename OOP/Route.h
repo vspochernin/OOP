@@ -19,7 +19,7 @@ public:
 	Route(const std::string& start, const std::string& finish, int routeNumber);
 
 	// Конструктор копирования.
-	Route(const Route& r);
+	Route(const Route& route);
 
 	// Деструктор.
 	~Route();
@@ -50,25 +50,25 @@ public:
 
 #pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 
 	// Перегрузка оператора присваивания.
-	Route operator= (const Route& r2);
+	Route operator= (const Route& route2);
 
 	// Перегрузка опреатора равенства.
-	bool operator==(const Route& r2) const;
+	bool operator==(const Route& route2) const;
 
 	// Перегрузка опреатора неравенства.
-	bool operator!=(const Route& r2) const;
+	bool operator!=(const Route& route2) const;
 
 	// Перегрузка опретора больше.
-	bool operator>(const Route& r2) const;
+	bool operator>(const Route& route2) const;
 
 	// Перегрузка опретора меньше.
-	bool operator<(const Route& r2) const;
+	bool operator<(const Route& route2) const;
 
 	// Перегрузка опретора больше или равно.
-	bool operator>=(const Route& r2) const;
+	bool operator>=(const Route& route2) const;
 
 	// Перегрузка опретора меньше или равно.
-	bool operator<=(const Route& r2) const;
+	bool operator<=(const Route& route2) const;
 #pragma endregion
 
 #pragma region Перегрузка ++ -- и потока.
@@ -83,10 +83,10 @@ public:
 	Route operator--(int notused);
 
 	// Перегрузка оператора <<. 
-	friend std::ostream& operator<< (std::ostream& out, const Route& r);
+	friend std::ostream& operator<< (std::ostream& out, const Route& route);
 
 	// Перегрузка оператора >>.
-	friend std::istream& operator>> (std::istream& in, Route& r);
+	friend std::istream& operator>> (std::istream& in, Route& route);
 #pragma endregion
 };
 

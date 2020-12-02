@@ -3,8 +3,8 @@
 
 // Классы исключений.
 
-#include <exception>
 #include <string>
+#include <exception>
 
 class InvalidRoute : public std::exception
 {

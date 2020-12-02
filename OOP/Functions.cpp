@@ -1,6 +1,7 @@
-#include "Functions.h"
 #include <fstream>
 #include <iomanip>
+
+#include "Functions.h"
 
 // Заполнить массив маршрутов из файла. (Встроенный С++ массив)
 void fillArrayByFile(Route routes[], size_t size, std::string fileName)

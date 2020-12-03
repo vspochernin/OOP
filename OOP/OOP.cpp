@@ -3,7 +3,6 @@
 // TODO: Проверить правильности ввода, в частности проверить открытие файла
 // TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
 // TODO: 80 column rule
-// TODO: Совет Червинского
 
 #include <iostream>
 #include <fstream>
@@ -12,9 +11,12 @@
 #include "Route.h"
 #include "Functions.h"
 #include "MyExceptions.h"
+#include "MyString.h"
 
 int main()
 {
+  // Основная программа (скрыта на время тестирования строк).
+  #if 0
   setlocale(LC_ALL, "Russian");
   std::ofstream fout("output.txt");
 
@@ -60,6 +62,22 @@ int main()
     std::cout << "Сработало исключение: " << ex.what() << std::endl;
     return 1;
   }
+  #endif
+
+  MyString str1 = "Helo";
+  MyString str2 = "World";
+  MyString str3 = str2;
+
+  std::cout << str1.get() << std::endl;
+  std::cout << str2.get() << std::endl;
+  std::cout << (str1+str2).get() << std::endl;
+  MyString str4;
+  str4 = str1 + str2;
+  char ch1 = str1[0];
+  bool b1 = str1 == str2;
+  bool b2 = str1 != str2;
+  bool b3 = str2 == str3;
+  char ch2 = str2[3];
 
   return 0;
 }

@@ -145,3 +145,20 @@ void showPairs(const std::vector<std::pair<std::string, int>>& pairs, std::ostre
 #ifdef _MSC_VER
 #pragma endregion
 #endif
+
+#ifdef _MSC_VER
+#pragma region Функции для строк.
+#endif
+// Вычисление длины строки (массив char).
+size_t myStrLen(const char* string)
+{
+  size_t i = 0;
+  while (string[i] != '\0')
+  {
+    i++;
+  }
+  return i;
+}
+#ifdef _MSC_VER
+#pragma endregion
+#endif

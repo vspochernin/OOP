@@ -3,6 +3,7 @@
 // TODO: Проверить правильности ввода, в частности проверить открытие файла
 // TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
 // TODO: 80 column rule
+// TODO: Проверить на утечки памяти!
 
 #include <iostream>
 #include <fstream>
@@ -64,6 +65,9 @@ int main()
   }
   #endif
 
+  // Тестирование класса MyString.
+  #if 1 
+  setlocale(LC_ALL, "Russian");
   MyString str1 = "Helo";
   MyString str2 = "World";
   MyString str3 = str2;
@@ -78,6 +82,18 @@ int main()
   bool b2 = str1 != str2;
   bool b3 = str2 == str3;
   char ch2 = str2[3];
+
+  std::cout << str1 << std::endl;
+  std::cout << str2 << std::endl;
+
+  std::cout << std::endl << std::endl << std::endl;
+  MyString str5, str6, str7, str8;
+  std::cin >> str5 >> str6 >> str7 >> str8;
+  std::cout << "Введенная строка1: \"" << str5 << "\"." << std::endl;
+  std::cout << "Введенная строка1: \"" << str6 << "\"." << std::endl;
+  std::cout << "Введенная строка1: \"" << str7 << "\"." << std::endl;
+  std::cout << "Введенная строка1: \"" << str8 << "\"." << std::endl;
+  #endif
 
   return 0;
 }

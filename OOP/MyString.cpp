@@ -1,7 +1,9 @@
+#include <windows.h>
 #include <exception>
 
-#include "MyString.h"
 #include "Functions.h"
+// TODO: Выяснить, в чем было дело? (Френд не дружился).
+#include "MyString.h"
 
 // Конструктор без параметров.
 MyString::MyString() : string_(nullptr), size_(0) {}
@@ -150,4 +152,50 @@ char& MyString::operator[](size_t index)
   }
 
   return string_[index];
+}
+
+// Перегрузка оператора <<. 
+std::ostream& operator<< (std::ostream& out, const MyString& myString)
+{
+  return (out << myString.string_);
+}
+
+// Перегрузка оператора >>.
+// TODO: Еще раз тщательно просмотреть алгоритм.
+std::istream& operator>> (std::istream& in, MyString& myString)
+{
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
+
+  char* input = new char[256]; // Выделяем считывающей строке оверсайз памяти.
+  // TODO: Уточнить, верно ли? (как считываем свою строку).
+  char symbol = in.get(); // Будем посимвольно считывать сюда.
+  size_t i = 0;
+  while ((symbol != ' ') && (symbol != '\n')) // Пока мы не считали разделитель.
+  {
+    input[i] = symbol; // Записываем очередной символ в считывающую строку.
+    symbol = in.get(); // И считываем очередной символ.
+    i++;
+  }
+  input[i] = '\0'; // После того, как дошли до разделителя, записываем конечный ноль.
+
+  while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // Пока впереди есть разделители - убираем их из потока.  (Конец потока ввода - Ctrl+Z!!!)
+  {
+    symbol = in.get(); 
+  }
+
+  if (myString.string_ != nullptr)
+  {
+    delete[] myString.string_;
+  }
+  myString.size_ = myStrLen(input);
+  myString.string_ = new char[myString.size_ + 1];
+  for (size_t i = 0; i < myString.size_; i++)
+  {
+    myString.string_[i] = input[i];
+  }
+  myString.string_[myString.size_] = '\0';
+
+  // TODO: уточнить, верно ли? (Что возвращаем).
+  return in;
 }

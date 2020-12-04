@@ -33,6 +33,12 @@ public:
 
   // Перегрузка оператора [].
   char& operator[](size_t index);
+
+  // Перегрузка оператора <<. 
+  friend std::ostream& operator<< (std::ostream& out, const MyString& myString);
+
+  // Перегрузка оператора >>.
+  friend std::istream& operator>> (std::istream& in, MyString& myString);
 private:
   char* string_;
   size_t size_;

@@ -13,11 +13,12 @@
 #include "Functions.h"
 #include "MyExceptions.h"
 #include "MyString.h"
+#include "MyArray.h"
 
 int main()
 {
   // Основная программа (скрыта на время тестирования строк).
-  #if 0
+#if 0
   setlocale(LC_ALL, "Russian");
   std::ofstream fout("output.txt");
 
@@ -63,10 +64,10 @@ int main()
     std::cout << "Сработало исключение: " << ex.what() << std::endl;
     return 1;
   }
-  #endif
+#endif
 
   // Тестирование класса MyString.
-  #if 1 
+#if 0 
   setlocale(LC_ALL, "Russian");
   MyString str1 = "Helo";
   MyString str2 = "World";
@@ -74,7 +75,7 @@ int main()
 
   std::cout << str1.get() << std::endl;
   std::cout << str2.get() << std::endl;
-  std::cout << (str1+str2).get() << std::endl;
+  std::cout << (str1 + str2).get() << std::endl;
   MyString str4;
   str4 = str1 + str2;
   char ch1 = str1[0];
@@ -93,7 +94,43 @@ int main()
   std::cout << "Введенная строка1: \"" << str6 << "\"." << std::endl;
   std::cout << "Введенная строка1: \"" << str7 << "\"." << std::endl;
   std::cout << "Введенная строка1: \"" << str8 << "\"." << std::endl;
-  #endif
+#endif
+
+  // Тестирование строк.
+#if 1
+  setlocale(LC_ALL, "Russian");
+
+  size_t size = 0;
+  std::cout << "Введите размер массива: ";
+  std::cin >> size;
+  MyArray<int> array1(size);
+  for (size_t i = 0; i < size; i++)
+  {
+    array1[i] = i * 3;
+  }
+  std::cout << "Четные элементы массива:" << std::endl;
+  for (size_t i = 0; i < size; i += 2)
+  {
+    std::cout << array1[i] << ' ';
+  }
+  std::cout << std::endl << "Нечетные элементы массива:" << std::endl;
+  for (size_t i = 1; i < size; i += 2)
+  {
+    std::cout << array1[i] << ' ';
+  }
+  std::cout << std::endl;
+
+  MyArray<Route> array2(size);
+  array2[size / 2].setStart("НачалоЛол");
+  array2[size / 2].setFinish("КонецЛол");
+  array2[size / 2].setNumber(228);
+
+  for (size_t i = 0; i < size; i++)
+  {
+    std::cout << "Маршрут №" << i + 1 << ": " << array2[i] << std::endl;
+  }
+  std::cout << "А всего маршрутов было " << array2.getSize() << std::endl;
+#endif
 
   return 0;
 }

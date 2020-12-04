@@ -10,7 +10,7 @@
 Route::Route() : start_(""), finish_("В парк"), number_(0) {}
 
 // Конструктор с параметрами.
-Route::Route(const std::string& start, const std::string& finish, int number) : start_(start), finish_(finish), number_(number)
+Route::Route(const MyString& start, const MyString& finish, int number) : start_(start), finish_(finish), number_(number)
 {
   if (number_ <= 0)
   {
@@ -35,7 +35,7 @@ Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_),
   }
 }
 
-// Деструктор.
+// TODO: Деструктор.  Надо ли здесь очищать память строки? Или она очистится своим деструктором?
 Route::~Route() {}
 #ifdef _MSC_VER
 #pragma endregion
@@ -45,13 +45,13 @@ Route::~Route() {}
 #pragma region Геттеры и сеттеры.
 #endif
 // Получить название начального пункта маршрута.
-std::string Route::getStart() const
+MyString Route::getStart() const
 {
   return start_;
 }
 
 // Получить название конечного пункта маршрута.
-std::string Route::getFinish() const
+MyString Route::getFinish() const
 {
   return finish_;
 }
@@ -63,7 +63,7 @@ int Route::getNumber() const
 }
 
 // Установить название начального пункта маршрута.
-void Route::setStart(const std::string& start)
+void Route::setStart(const MyString& start)
 {
   start_ = start;
   if (start_ == "")
@@ -73,7 +73,7 @@ void Route::setStart(const std::string& start)
 }
 
 // Установить название конечного пункта маршрута.
-void Route::setFinish(const std::string& finish)
+void Route::setFinish(const MyString& finish)
 {
   finish_ = finish;
   if (finish_ == "")
@@ -209,7 +209,7 @@ std::ostream& operator<< (std::ostream& out, const Route& route)
   return (out << '|' << std::setw(14) << route.number_ << '|' << std::setw(15) << route.start_ << '|' << std::setw(14) << route.finish_ << '|');
 }
 
-// Перегрузка оператора >>.
+// TODO: Перегрузка оператора >>. Вот это проверить, если будут баг.
 std::istream& operator>> (std::istream& in, Route& route)
 {
   return (in >> route.number_ >> route.start_ >> route.finish_);
@@ -217,4 +217,3 @@ std::istream& operator>> (std::istream& in, Route& route)
 #ifdef _MSC_VER
 #pragma endregion
 #endif
-

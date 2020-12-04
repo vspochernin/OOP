@@ -22,6 +22,9 @@ public:
   // Получить размер массива.
   size_t getSize() const;
 
+  // Заново выделить память у массива (при этом данные пропадают).
+  void reAllocate(size_t size);
+
   // Перегрузка оператора [].
   Data& operator[](size_t index) const;
 private:
@@ -45,6 +48,18 @@ template <typename Data>
 size_t MyArray<Data>::getSize() const
 {
   return size_;
+}
+
+template <typename Data>
+void MyArray<Data>::reAllocate(size_t size)
+{
+  if (data_ != nullptr)
+  {
+    delete[] data_;
+  }
+
+  size_ = size;
+  data_ = new Data[size];
 }
 
 #endif

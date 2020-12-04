@@ -3,29 +3,13 @@
 
 #include "Functions.h"
 
-// Заполнить массив маршрутов из файла. (Встроенный С++ массив)
-void fillArrayByFile(Route routes[], size_t size, std::string fileName)
+// Заполнить массив маршрутов из файла (MyArray массив)
+void fillMyArrayByFile(MyArray<Route>& routes, const MyString& fileName)
 {
-  std::ifstream fin(fileName);
-  size_t i = 0;
-  size_t nElements = 0; // По сути, эта переменная нужна только, чтобы считать в неё первую строчку файла.
-  fin >> nElements;
-  while (!fin.eof() && i < size)
-  {
-    fin >> routes[i];
-    i++;
-  }
-  fin.close();
-}
-
-// Заполнить массив маршрутов из файла. (Динамический массив)
-void fillDynArrayByFile(Route*& routes, size_t& size, std::string fileName)
-{
-  std::ifstream fin(fileName);
+  std::ifstream fin(fileName.get());
   size_t nElements = 0;
   fin >> nElements;
-  size = nElements;
-  routes = new Route[nElements];
+  routes.reAllocate(nElements);
   size_t i = 0;
   while (!fin.eof() && i < nElements)
   {
@@ -36,22 +20,22 @@ void fillDynArrayByFile(Route*& routes, size_t& size, std::string fileName)
 }
 
 // Вывести в поток вывода таблицу маршрутов.
-void showRouteArray(Route routes[], size_t size, std::ostream& out)
+void showRouteArray(const MyArray<Route>& routes, std::ostream& out)
 {
   out << "-----------------------------------------------" << std::endl;
   out << "|Номер маршрута|Начало маршрута|Конец маршрута|" << std::endl;
-  for (size_t i = 0; i < size; i++)
+  for (size_t i = 0; i < routes.getSize(); i++)
   {
     out << routes[i] << std::endl;
   }
   out << "-----------------------------------------------" << std::endl;
 }
 
-// Получить индекс максимального по номера маршрута из массива.
-Route getMaxRoute(Route routes[], size_t size)
+// Получить максимальный по номеру маршрут из массива.
+Route getMaxRoute(const MyArray<Route>& routes)
 {
   Route max = routes[0];
-  for (size_t i = 0; i < size; i++)
+  for (size_t i = 0; i < routes.getSize(); i++)
   {
     if (routes[i] > max)
     {
@@ -61,11 +45,11 @@ Route getMaxRoute(Route routes[], size_t size)
   return max;
 }
 
-// Получить индекс минимального по номера маршрута из массива.
-Route getMinRoute(Route routes[], size_t size)
+// Получить минимальный по номеру маршрут из массива.
+Route getMinRoute(const MyArray<Route>& routes)
 {
   Route min = routes[0];
-  for (size_t i = 0; i < size; i++)
+  for (size_t i = 0; i < routes.getSize(); i++)
   {
     if (routes[i] < min)
     {
@@ -79,7 +63,7 @@ Route getMinRoute(Route routes[], size_t size)
 #pragma region Вектор пар.
 #endif
 // Определить, есть ли в векторе пар элемент с ключем key. Если есть - положить его в переменную index.
-bool indexOfKey(const std::vector<std::pair<std::string, int>>& pairs, const std::string& key, size_t& index)
+bool indexOfKey(const std::vector<std::pair<MyString, int>>& pairs, const MyString& key, size_t& index)
 {
   for (size_t i = 0; i < pairs.size(); i++)
   {
@@ -94,7 +78,7 @@ bool indexOfKey(const std::vector<std::pair<std::string, int>>& pairs, const std
 }
 
 // Сортировка вектора пар по значению.
-void sortPairs(std::vector<std::pair<std::string, int>>& pairs)
+void sortPairs(std::vector<std::pair<MyString, int>>& pairs)
 {
   // Массив из 1 или 0 элементов уже отсортирован.
   if (pairs.size() <= 1)
@@ -103,7 +87,7 @@ void sortPairs(std::vector<std::pair<std::string, int>>& pairs)
   }
   for (int i = 1; i < static_cast<int>(pairs.size()); i++) // Для каждого следующего неотсортированного элемента найдем его место.
   {
-    std::pair<std::string, int> temp = pairs[i];
+    std::pair<MyString, int> temp = pairs[i];
     int j = 0;
     for (j = i - 1; (j >= 0) && pairs[j].second < temp.second; j--) // Для элементов левее первого неотсортированного, пока они больше его...
     {
@@ -114,11 +98,12 @@ void sortPairs(std::vector<std::pair<std::string, int>>& pairs)
   }
 }
 
-// Заполнить вектор пар из массива.
-void setPairs(std::vector<std::pair<std::string, int>>& pairs, Route* routes, size_t size)
+// Заполнить вектор пар из массива MyArray.
+// TODO: выяснить, что был за баг, когда передавали routes не по ссылке, массив портился.
+void setPairs(std::vector<std::pair<MyString, int>>& pairs, const MyArray<Route>& routes)
 {
   size_t index = 0;
-  for (size_t i = 0; i < size; i++)
+  for (size_t i = 0; i < routes.getSize(); i++)
   {
     if (indexOfKey(pairs, routes[i].getFinish(), index))
     {
@@ -126,13 +111,13 @@ void setPairs(std::vector<std::pair<std::string, int>>& pairs, Route* routes, si
     }
     else
     {
-      pairs.push_back(std::make_pair<std::string, int>(routes[i].getFinish(), 1));
+      pairs.push_back(std::make_pair<MyString, int>(routes[i].getFinish(), 1));
     }
   }
 }
 
-// Вывести вектор пар в поток вывода.
-void showPairs(const std::vector<std::pair<std::string, int>>& pairs, std::ostream& out)
+// Вывести вектор пар в поток ввода.
+void showPairs(const std::vector<std::pair<MyString, int>>& pairs, std::ostream& out)
 {
   out << "-------------------------------" << std::endl;
   out << "|Конец маршрута|Число машрутов|" << std::endl;

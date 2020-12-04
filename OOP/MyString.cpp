@@ -2,7 +2,7 @@
 #include <exception>
 
 #include "Functions.h"
-// TODO: Выяснить, в чем было дело? (Френд не дружился).
+// TODO: Выяснить, в чем было дело? (Френд не дружился, если инклюдить в другом порядке).
 #include "MyString.h"
 
 // Конструктор без параметров.
@@ -95,7 +95,7 @@ MyString MyString::operator+(const MyString& myString2) const
   }
   for (size_t j = 0; j < size2; j++)
   {
-    // TODO: Что делать с этой ошибкой?
+    // TODO: Что делать с этой ошибкой (предупреждением)?
     newString.string_[i] = myString2.string_[j];
     i++;
   }
@@ -169,11 +169,20 @@ std::istream& operator>> (std::istream& in, MyString& myString)
 
   char* input = new char[256]; // Выделяем считывающей строке оверсайз памяти.
   // TODO: Уточнить, верно ли? (как считываем свою строку).
-  char symbol = in.get(); // Будем посимвольно считывать сюда.
+  char symbol = ' ';
+  while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // Пока впереди есть разделители - убираем их из потока.
+  {
+    symbol = in.get();
+  }
+  symbol = in.get(); // Будем посимвольно считывать сюда.
   size_t i = 0;
   while ((symbol != ' ') && (symbol != '\n')) // Пока мы не считали разделитель.
   {
     input[i] = symbol; // Записываем очередной символ в считывающую строку.
+    if (in.eof()) // Чтобы последний символ последней строки не считывался бесконечно.
+    {
+      break;
+    }
     symbol = in.get(); // И считываем очередной символ.
     i++;
   }
@@ -181,7 +190,7 @@ std::istream& operator>> (std::istream& in, MyString& myString)
 
   while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // Пока впереди есть разделители - убираем их из потока.  (Конец потока ввода - Ctrl+Z!!!)
   {
-    symbol = in.get(); 
+    symbol = in.get();
   }
 
   if (myString.string_ != nullptr)

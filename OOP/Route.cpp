@@ -2,6 +2,7 @@
 
 #include "Route.h"
 #include "MyExceptions.h"
+#include "Functions.h"
 
 #ifdef _MSC_VER
 #pragma region Конструкторы и деструктор.
@@ -210,9 +211,32 @@ std::ostream& operator<< (std::ostream& out, const Route& route)
 }
 
 // TODO: Перегрузка оператора >>. Вот это проверить, если будут баг.
+// TODO: Проверить, правильно ли возвращаю?
 std::istream& operator>> (std::istream& in, Route& route)
 {
-  return (in >> route.number_ >> route.start_ >> route.finish_);
+  // TODO: достаточно ли такой проверки?
+  size_t number;
+  MyString start;
+  MyString finish;
+  in >> number;
+  if (!in || ((in.peek() != ' ') && in.peek() != '\n'))
+  {
+    throw (InvalidInput("Некоректный номер маршрута."));
+  }
+  in >> start;
+  if (!in || !isCorrectRouteName(start))
+  {
+    throw (InvalidInput("Некорректное название начала маршрута."));
+  }
+  in >> finish;
+  if ((!in.eof() && !in) || !isCorrectRouteName(finish))
+  {
+    throw (InvalidInput("Некорректное название конца маршрута."));
+  }
+  route.number_ = number;
+  route.start_ = start;
+  route.finish_ = finish;
+  return in;
 }
 #ifdef _MSC_VER
 #pragma endregion

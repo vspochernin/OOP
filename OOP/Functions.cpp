@@ -2,13 +2,27 @@
 #include <iomanip>
 
 #include "Functions.h"
+#include "MyExceptions.h"
 
 // Заполнить массив маршрутов из файла (MyArray массив)
 void fillMyArrayByFile(MyArray<Route>& routes, const MyString& fileName)
 {
-  std::ifstream fin(fileName.get());
+  std::ifstream fin;
+  fin.open(fileName.get());
+  if (!fin)
+  {
+    throw (fileName + MyString(" не открыт"));
+  }
   size_t nElements = 0;
   fin >> nElements;
+  if (!fin || fin.peek() != '\n')
+  {
+    throw (InvalidInput("Некорректная запись количества строк."));
+  }
+  if (!isCorrectFileStructure(fileName, nElements + 1))
+  {
+    throw (InvalidInput("Некорректная структура файла."));
+  }
   routes.reAllocate(nElements);
   size_t i = 0;
   while (!fin.eof() && i < nElements)
@@ -144,6 +158,97 @@ size_t myStrLen(const char* string)
   }
   return i;
 }
+
+// Определить, корректно ли задано название начала или конца маршрута?.
+bool isCorrectRouteName(const MyString& string)
+{
+  if (string.getSize() < 2)
+  {
+    return false;
+  }
+
+  int ch = static_cast<int>(string.get()[0]);
+  int leftBorder = static_cast<int>('А');
+  int rightBorder = static_cast<int>('Я');
+  if (((ch < leftBorder) || (ch > rightBorder)) && (ch != static_cast<int>('-')))
+  {
+    return false;
+  }
+
+  leftBorder = static_cast<int>('а');
+  rightBorder = static_cast<int>('я');
+  for (size_t i = 1; i < string.getSize(); i++)
+  {
+    ch = static_cast<int>(string.get()[i]);
+    if (((ch < leftBorder) || (ch > rightBorder)) && (ch != static_cast<int>('-')))
+    {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// Определение количества слов в строке.
+int countOfWords(const char* string)
+{
+  int result = 0;
+  bool isWord = false; // Проверка, записывается ли сейчас слово.
+  for (size_t i = 0; i < myStrLen(string); i++)
+  {
+    if (string[i] == ' ')
+    {
+      isWord = false;
+      continue;
+    }
+    if (!isWord)
+    {
+      result++;
+      isWord = true;
+    }
+  }
+
+  return result;
+}
 #ifdef _MSC_VER
 #pragma endregion
 #endif
+
+// Проверить, корректная ли структура файла.
+bool isCorrectFileStructure(const MyString& fileName, size_t countOfLines)
+{
+  std::ifstream fin;
+  fin.open(fileName.get());
+  if (fin.eof())
+  {
+    return false;
+  }
+  char* temp = new char[256];
+
+  fin.getline(temp, 256);
+  if (fin.eof() || (countOfWords(temp) > 1))
+  {
+    delete[] temp;
+    return false;
+  }
+
+  for (size_t i = 0; i < countOfLines - 2; i++)
+  {
+    fin.getline(temp, 256);
+    if (fin.eof() || (countOfWords(temp) != 3))
+    {
+      delete[] temp;
+      return false;
+    }
+  }
+
+  fin.getline(temp, 256);
+  if (!fin.eof() || (countOfWords(temp) != 3))
+  {
+    delete[] temp;
+    return false;
+  }
+
+  delete[] temp;
+  return true;
+}

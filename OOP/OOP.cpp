@@ -4,6 +4,7 @@
 // TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
 // TODO: 80 column rule
 // TODO: Проверить на утечки памяти!
+// TODO: Проверка на удачное открытие файла.
 
 #include <iostream>
 #include <fstream>
@@ -20,10 +21,36 @@ int main()
   setlocale(LC_ALL, "Russian");
   MyString inputFileName("input.txt");
   MyString outputFileName("output.txt");
-  std::ofstream fout(outputFileName.get());
-
+  std::ofstream fout;
+  try
+  {
+    fout.open(outputFileName.get());
+    if (!fout)
+    {
+      throw (outputFileName + MyString("Не открыт"));
+    }
+  }
+  catch (const MyString& error)
+  {
+    std::cout << "Ошибка файла: " << error.get();
+    return 1;
+  }
   MyArray<Route> routes;
-  fillMyArrayByFile(routes, inputFileName);
+  try
+  {
+    fillMyArrayByFile(routes, inputFileName);
+  }
+  catch (const MyString& error)
+  {
+    std::cout << "Ошибка файла: " << error.get();
+    return 1;
+  }
+  catch (InvalidInput& ex)
+  {
+    std::cout << "Ошибка ввода: " << ex.what();
+    return 1;
+  }
+ 
   fout << "Изначальный массив:" << std::endl;
   showRouteArray(routes, fout);
 

@@ -22,6 +22,9 @@ public:
   // Получить строку.
   char* get() const;
 
+  // Получить размер строки.
+  size_t getSize() const;
+
   // Перегрузка оператора =.
   MyString& operator=(const MyString& myString2);
 

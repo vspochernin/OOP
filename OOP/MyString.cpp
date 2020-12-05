@@ -50,6 +50,12 @@ char* MyString::get() const
   return string_;
 }
 
+// Получить размер строки.
+size_t MyString::getSize() const
+{
+  return size_;
+}
+
 // Перегрузка оператора =.
 MyString& MyString::operator=(const MyString& myString2)
 {

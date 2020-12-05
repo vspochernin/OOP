@@ -19,4 +19,18 @@ public:
   }
 };
 
+class InvalidInput : public std::exception
+{
+private:
+  MyString errorMessage_;
+public:
+  InvalidInput(MyString errorMessage) : errorMessage_(errorMessage) {}
+
+  virtual const char* what() const noexcept
+  {
+    return errorMessage_.get();
+  }
+};
+
+
 #endif

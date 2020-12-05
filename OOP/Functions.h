@@ -63,7 +63,16 @@ void showPairs(const std::vector<std::pair<MyString, int>>& pairs, std::ostream&
 #endif
 // Вычисление длины строки (массив char).
 size_t myStrLen(const char* string);
+
+// Определить, корректно ли задано название начала или конца маршрута?.
+bool isCorrectRouteName(const MyString& string);
+
+// Определение количества слов в строке.
+int countOfWords(const char* string);
 #ifdef _MSC_VER
 #pragma endregion
 #endif
 #endif
+
+// Проверить, корректная ли структура файла.
+bool isCorrectFileStructure(const MyString& fileName, size_t count);

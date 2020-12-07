@@ -3,6 +3,7 @@
 
 #include "Functions.h"
 #include "MyExceptions.h"
+#include "ExceptionNames.h"
 
 // Заполнить массив маршрутов из файла (MyArray массив)
 void fillMyArrayByFile(MyArray<Route>& routes, const MyString& fileName)
@@ -11,17 +12,17 @@ void fillMyArrayByFile(MyArray<Route>& routes, const MyString& fileName)
   fin.open(fileName.get());
   if (!fin)
   {
-    throw (fileName + MyString(" не открыт"));
+    throw (fileName + MyString(ERROR_FILE_IS_NOT_OPEN));
   }
   size_t nElements = 0;
   fin >> nElements;
   if (!fin || fin.peek() != '\n')
   {
-    throw (InvalidInput("Некорректная запись количества строк."));
+    throw (InvalidInput(ERROR_INCORRECT_LINES_NUMBER));
   }
   if (!isCorrectFileStructure(fileName, nElements + 1))
   {
-    throw (InvalidInput("Некорректная структура файла."));
+    throw (InvalidInput(ERROR_INCORRECT_FILE_STRUCTURE));
   }
   routes.reAllocate(nElements);
   size_t i = 0;
@@ -113,7 +114,6 @@ void sortPairs(std::vector<std::pair<MyString, int>>& pairs)
 }
 
 // Заполнить вектор пар из массива MyArray.
-// TODO: выяснить, что был за баг, когда передавали routes не по ссылке, массив портился.
 void setPairs(std::vector<std::pair<MyString, int>>& pairs, const MyArray<Route>& routes)
 {
   size_t index = 0;
@@ -170,7 +170,7 @@ bool isCorrectRouteName(const MyString& string)
   int ch = static_cast<int>(string.get()[0]);
   int leftBorder = static_cast<int>('А');
   int rightBorder = static_cast<int>('Я');
-  if (((ch < leftBorder) || (ch > rightBorder)) && (ch != static_cast<int>('-')))
+  if (((ch < leftBorder) || (ch > rightBorder)))
   {
     return false;
   }

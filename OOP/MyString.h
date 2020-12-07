@@ -1,7 +1,6 @@
 #ifndef MY_STRING
 #define MY_STRING
 
-// TODO: Возможно, не нужно.
 #include <iostream>
 
 class MyString

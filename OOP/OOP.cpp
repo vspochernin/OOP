@@ -1,10 +1,5 @@
 // Почернин Владислав Сергеевич.
 // Вариант 11.
-// TODO: Проверить правильности ввода, в частности проверить открытие файла
-// TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
-// TODO: 80 column rule
-// TODO: Проверить на утечки памяти!
-// TODO: Проверка на удачное открытие файла.
 
 #include <iostream>
 #include <fstream>
@@ -15,6 +10,7 @@
 #include "MyExceptions.h"
 #include "MyString.h"
 #include "MyArray.h"
+#include "ExceptionNames.h"
 
 int main()
 {
@@ -27,12 +23,12 @@ int main()
     fout.open(outputFileName.get());
     if (!fout)
     {
-      throw (outputFileName + MyString("Не открыт"));
+      throw (outputFileName + MyString(ERROR_FILE_IS_NOT_OPEN));
     }
   }
   catch (const MyString& error)
   {
-    std::cout << "Ошибка файла: " << error.get();
+    std::cout << ERROR_WITH_FILE << error.get();
     return 1;
   }
   MyArray<Route> routes;
@@ -42,15 +38,15 @@ int main()
   }
   catch (const MyString& error)
   {
-    std::cout << "Ошибка файла: " << error.get();
+    std::cout << ERROR_WITH_FILE << error.get();
     return 1;
   }
   catch (InvalidInput& ex)
   {
-    std::cout << "Ошибка ввода: " << ex.what();
+    std::cout << ERROR_WITH_INPUT << ex.what();
     return 1;
   }
- 
+
   fout << "Изначальный массив:" << std::endl;
   showRouteArray(routes, fout);
 
@@ -67,8 +63,7 @@ int main()
   fout << std::endl << "Список названий конечных пунктов маршрутов и числа маршрутов, ведущих в них в порядке убывания числа маршрутов:" << std::endl;
   showPairs(pairs, fout);
 
-  // TODO: Нужно ли вручную удалять все массивы? (И ведь в парах остается память...?)
-  //routes.~MyArray();
+  // TODO: Проверить на утечки.
   fout.close();
 
   return 0;

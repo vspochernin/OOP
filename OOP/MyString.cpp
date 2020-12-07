@@ -2,7 +2,7 @@
 #include <exception>
 
 #include "Functions.h"
-// TODO: Выяснить, в чем было дело? (Френд не дружился, если инклюдить в другом порядке).
+#include "ExceptionNames.h"
 #include "MyString.h"
 
 // Конструктор без параметров.
@@ -99,9 +99,8 @@ MyString MyString::operator+(const MyString& myString2) const
     newString.string_[i] = string_[i];
     i++;
   }
-  for (size_t j = 0; j < size2; j++)
+  for (size_t j = 0; (j < size2) && (i < newSize) ; j++)
   {
-    // TODO: Что делать с этой ошибкой (предупреждением)?
     newString.string_[i] = myString2.string_[j];
     i++;
   }
@@ -153,8 +152,7 @@ char& MyString::operator[](size_t index)
 {
   if ((index < 0) || (index >= size_))
   {
-    // TODO: Выяснить, правильно ли делаю.
-    throw (std::out_of_range("Неккоректный индекс, выход за границы массива."));
+    throw (std::out_of_range(ERROR_INCORRECT_INDEX_OUT_OF_RANGE));
   }
 
   return string_[index];
@@ -167,14 +165,12 @@ std::ostream& operator<< (std::ostream& out, const MyString& myString)
 }
 
 // Перегрузка оператора >>.
-// TODO: Еще раз тщательно просмотреть алгоритм.
 std::istream& operator>> (std::istream& in, MyString& myString)
 {
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
 
   char* input = new char[256]; // Выделяем считывающей строке оверсайз памяти.
-  // TODO: Уточнить, верно ли? (как считываем свою строку).
   char symbol = ' ';
   while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // Пока впереди есть разделители - убираем их из потока.
   {
@@ -199,10 +195,8 @@ std::istream& operator>> (std::istream& in, MyString& myString)
     symbol = in.get();
   }
 
-  if (myString.string_ != nullptr)
-  {
-    delete[] myString.string_;
-  }
+
+  delete[] myString.string_;
   myString.size_ = myStrLen(input);
   myString.string_ = new char[myString.size_ + 1];
   for (size_t i = 0; i < myString.size_; i++)
@@ -211,6 +205,6 @@ std::istream& operator>> (std::istream& in, MyString& myString)
   }
   myString.string_[myString.size_] = '\0';
 
-  // TODO: уточнить, верно ли? (Что возвращаем).
+  delete[] input;
   return in;
 }

@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ExceptionNames.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="OOP.cpp" />
     <ClCompile Include="Route.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExceptionNames.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="MyArray.h" />
     <ClInclude Include="MyExceptions.h" />

@@ -33,6 +33,9 @@ public:
   // Заново выделить память у массива (при этом данные пропадают).
   void reAllocate(size_t size);
 
+  // Метод добавления элемента в массив.
+  void pushBack(const Data& object);
+
   // Перегрузка оператора [].
   Data& operator[](size_t index) const;
 
@@ -109,6 +112,22 @@ void MyArray<Data>::reAllocate(size_t size)
 
   size_ = size;
   data_ = new Data[size];
+}
+
+// Метод добавления элемента в массив.
+template <typename Data>
+void MyArray<Data>::pushBack(const Data& object)
+{
+  Data* newData = new Data[size_ + 1];
+  for (size_t i = 0; i < size_; i++)
+  {
+    newData[i] = data_[i];
+  }
+  newData[size_] = object;
+
+  delete[] data_;
+  data_ = newData;
+  size_ = size_ + 1;
 }
 
 // Перегрузка оператора =.

@@ -2,13 +2,13 @@
 #define ROUTE
 
 #include <iostream>
-#include <string>
+#include "MyString.h"
 
 class Route
 {
 private:
-  std::string start_; // Название начального пункта маршрута.
-  std::string finish_; // Название конечного пункта маршрута.
+  MyString start_; // Название начального пункта маршрута.
+  MyString finish_; // Название конечного пункта маршрута.
   int number_; // Номер маршрута.
 public:
 #ifdef _MSC_VER
@@ -18,7 +18,7 @@ public:
   Route();
 
   // Конструктор с параметрами.
-  Route(const std::string& start, const std::string& finish, int number);
+  Route(const MyString& start, const MyString& finish, int number);
 
   // Конструктор копирования.
   Route(const Route& route);
@@ -33,19 +33,19 @@ public:
 #pragma region Геттеры и сеттеры.
 #endif
   // Получить название начального пункта маршрута.
-  std::string getStart() const;
+  MyString getStart() const;
 
   // Получить название конечного пункта маршрута.
-  std::string getFinish() const;
+  MyString getFinish() const;
 
   // Получить номер маршрута.
   int getNumber() const;
 
   // Установить название начального пункта маршрута.
-  void setStart(const std::string& start);
+  void setStart(const MyString& start);
 
   // Установить название конечного пункта маршрута.
-  void setFinish(const std::string& finish);
+  void setFinish(const MyString& finish);
 
   // Установить номер маршрута.
   void setNumber(int number);

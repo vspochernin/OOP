@@ -1,9 +1,5 @@
 // Почернин Владислав Сергеевич.
 // Вариант 11.
-// TODO: Проверить правильности ввода, в частности проверить открытие файла
-// TODO: Для доп баллов - класс строк и шаблон массива (вклюая 3 4 5 пункты).
-// TODO: 80 column rule
-// TODO: Совет Червинского
 
 #include <iostream>
 #include <fstream>
@@ -12,54 +8,62 @@
 #include "Route.h"
 #include "Functions.h"
 #include "MyExceptions.h"
+#include "MyString.h"
+#include "MyArray.h"
+#include "ExceptionNames.h"
 
 int main()
 {
   setlocale(LC_ALL, "Russian");
-  std::ofstream fout("output.txt");
+  MyString inputFileName("input.txt");
+  MyString outputFileName("output.txt");
+  std::ofstream fout;
+  try
+  {
+    fout.open(outputFileName.get());
+    if (!fout)
+    {
+      throw (outputFileName + MyString(ERROR_FILE_IS_NOT_OPEN));
+    }
+  }
+  catch (const MyString& error)
+  {
+    std::cout << ERROR_WITH_FILE << error.get();
+    return -1;
+  }
+  MyArray<Route> routes;
+  try
+  {
+    fillMyArrayByFile(routes, inputFileName);
+  }
+  catch (const MyString& error)
+  {
+    std::cout << ERROR_WITH_FILE << error.get();
+    return -1;
+  }
+  catch (InvalidInput& ex)
+  {
+    std::cout << ERROR_WITH_INPUT << ex.what();
+    return 1;
+  }
 
-  Route* routes = nullptr;
-  size_t nRoutes = 0;
-
-  fillDynArrayByFile(routes, nRoutes, "input.txt");
   fout << "Изначальный массив:" << std::endl;
-  showRouteArray(routes, nRoutes, fout);
+  showRouteArray(routes, fout);
 
-  fout << std::endl << "Максимальный номер маршрута: " << getMaxRoute(routes, nRoutes).getNumber();
-  fout << std::endl << "Минимальный номер маршрута: " << getMinRoute(routes, nRoutes).getNumber() << std::endl << std::endl;
+  fout << std::endl << "Максимальный номер маршрута: " << getMaxRoute(routes).getNumber();
+  fout << std::endl << "Минимальный номер маршрута: " << getMinRoute(routes).getNumber() << std::endl << std::endl;
 
-  sortArray(routes, nRoutes);
+  sortMyArray(routes);
   fout << "Массив после сортировки:" << std::endl;
-  showRouteArray(routes, nRoutes, fout);
+  showRouteArray(routes, fout);
 
-  std::vector<std::pair<std::string, int>> pairs;
-  setPairs(pairs, routes, nRoutes);
+  std::vector<std::pair<MyString, int>> pairs;
+  setPairs(pairs, routes);
   sortPairs(pairs);
   fout << std::endl << "Список названий конечных пунктов маршрутов и числа маршрутов, ведущих в них в порядке убывания числа маршрутов:" << std::endl;
   showPairs(pairs, fout);
 
-  delete[] routes;
   fout.close();
-
-  // Проверка работы исключений.
-  try
-  {
-    Route nullRoute = Route();
-
-    //Route badRoute1 = Route("", "", 0); // Проверка исключения в конструкторе с параметрами.
-
-    //Route badRoute2 = nullRoute; // Проверка исключения в конструкторе копирования.
-
-    //nullRoute.setNumber(-13); // Проверка исключения в сеттерах.
-
-    Route normRoute = Route("Начало", "Конец", 123);
-    //normRoute = nullRoute; // Проверка исключения в операторе присваивания.
-  }
-  catch (InvalidRoute& ex)
-  {
-    std::cout << "Сработало исключение: " << ex.what() << std::endl;
-    return 1;
-  }
 
   return 0;
 }

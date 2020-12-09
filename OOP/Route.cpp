@@ -2,6 +2,8 @@
 
 #include "Route.h"
 #include "MyExceptions.h"
+#include "Functions.h"
+#include "ExceptionNames.h"
 
 #ifdef _MSC_VER
 #pragma region Конструкторы и деструктор.
@@ -10,15 +12,15 @@
 Route::Route() : start_(""), finish_("В парк"), number_(0) {}
 
 // Конструктор с параметрами.
-Route::Route(const std::string& start, const std::string& finish, int number) : start_(start), finish_(finish), number_(number)
+Route::Route(const MyString& start, const MyString& finish, int number) : start_(start), finish_(finish), number_(number)
 {
   if (number_ <= 0)
   {
-    throw InvalidRoute("Неправильный номер машрута.");
+    throw InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER);
   }
-  if ((start_ == "") || (finish_ == ""))
+  if ((start_ == "") || !isCorrectRouteName(start_) || (finish_ == "") || !isCorrectRouteName(finish_))
   {
-    throw InvalidRoute("Пустое название пунктов маршрута.");
+    throw InvalidRoute(ERROR_INCORRECT_ROUTE_POINTS_NAME);
   }
 }
 
@@ -27,15 +29,14 @@ Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_),
 {
   if (number_ <= 0)
   {
-    throw InvalidRoute("Неправильный номер машрута при копировании.");
+    throw InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER_WHEN_COPYING);
   }
-  if ((start_ == "") || (finish_ == ""))
+  if ((start_ == "") || !isCorrectRouteName(start_) || (finish_ == "") || !isCorrectRouteName(finish_))
   {
-    throw InvalidRoute("Пустое название пунктов маршрута при копировании.");
+    throw InvalidRoute(ERROR_INCORRECT_ROUTE_POINTS_NAME_WHEN_COPYING);
   }
 }
 
-// Деструктор.
 Route::~Route() {}
 #ifdef _MSC_VER
 #pragma endregion
@@ -45,13 +46,13 @@ Route::~Route() {}
 #pragma region Геттеры и сеттеры.
 #endif
 // Получить название начального пункта маршрута.
-std::string Route::getStart() const
+MyString Route::getStart() const
 {
   return start_;
 }
 
 // Получить название конечного пункта маршрута.
-std::string Route::getFinish() const
+MyString Route::getFinish() const
 {
   return finish_;
 }
@@ -63,22 +64,22 @@ int Route::getNumber() const
 }
 
 // Установить название начального пункта маршрута.
-void Route::setStart(const std::string& start)
+void Route::setStart(const MyString& start)
 {
   start_ = start;
-  if (start_ == "")
+  if ((start_ == "") || !isCorrectRouteName(start_))
   {
-    throw(InvalidRoute("Пустое название начала маршрута."));
+    throw(InvalidRoute(ERROR_INCORRECT_ROUTE_START_NAME));
   }
 }
 
 // Установить название конечного пункта маршрута.
-void Route::setFinish(const std::string& finish)
+void Route::setFinish(const MyString& finish)
 {
   finish_ = finish;
-  if (finish_ == "")
+  if ((finish_ == "") || !isCorrectRouteName(finish_))
   {
-    throw(InvalidRoute("Пустое название конца маршрута."));
+    throw(InvalidRoute(ERROR_INCORRECT_ROUTE_FINISH_NAME));
   }
 }
 
@@ -88,7 +89,7 @@ void Route::setNumber(int number)
   number_ = number;
   if (number_ <= 0)
   {
-    throw(InvalidRoute("Неправильный номер машрута."));
+    throw(InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER));
   }
 }
 
@@ -121,11 +122,11 @@ Route Route::operator= (const Route& route2)
 
   if (number_ <= 0)
   {
-    throw InvalidRoute("Неправильный номер машрута при присваивании.");
+    throw InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER_WHEN_ASSIGN);
   }
-  if ((start_ == "") || (finish_ == ""))
+  if ((start_ == "") || !isCorrectRouteName(start_) || (finish_ == "") || !isCorrectRouteName(finish_))
   {
-    throw InvalidRoute("Пустое название пунктов маршрута при присваивании.");
+    throw InvalidRoute(ERROR_INCORRECT_ROUTE_POINTS_NAME_WHEN_ASSIGN);
   }
 
   return *this;
@@ -209,12 +210,31 @@ std::ostream& operator<< (std::ostream& out, const Route& route)
   return (out << '|' << std::setw(14) << route.number_ << '|' << std::setw(15) << route.start_ << '|' << std::setw(14) << route.finish_ << '|');
 }
 
-// Перегрузка оператора >>.
 std::istream& operator>> (std::istream& in, Route& route)
 {
-  return (in >> route.number_ >> route.start_ >> route.finish_);
+  size_t number;
+  MyString start;
+  MyString finish;
+  in >> number;
+  if (!in || ((in.peek() != ' ') && in.peek() != '\n'))
+  {
+    throw (InvalidInput(ERROR_INCORRECT_ROUTE_NUMBER));
+  }
+  in >> start;
+  if (!in || !isCorrectRouteName(start))
+  {
+    throw (InvalidInput(ERROR_INCORRECT_ROUTE_START_NAME));
+  }
+  in >> finish;
+  if ((!in.eof() && !in) || !isCorrectRouteName(finish))
+  {
+    throw (InvalidInput(ERROR_INCORRECT_ROUTE_FINISH_NAME));
+  }
+  route.number_ = number;
+  route.start_ = start;
+  route.finish_ = finish;
+  return in;
 }
 #ifdef _MSC_VER
 #pragma endregion
 #endif
-

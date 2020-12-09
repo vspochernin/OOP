@@ -18,7 +18,7 @@ Route::Route(const MyString& start, const MyString& finish, int number) : start_
   {
     throw InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER);
   }
-  if ((start_ == "") || (finish_ == ""))
+  if ((start_ == "") || !isCorrectRouteName(start_) || (finish_ == "") || !isCorrectRouteName(finish_))
   {
     throw InvalidRoute(ERROR_INCORRECT_ROUTE_POINTS_NAME);
   }
@@ -31,7 +31,7 @@ Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_),
   {
     throw InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER_WHEN_COPYING);
   }
-  if ((start_ == "") || (finish_ == ""))
+  if ((start_ == "") || !isCorrectRouteName(start_) || (finish_ == "") || !isCorrectRouteName(finish_))
   {
     throw InvalidRoute(ERROR_INCORRECT_ROUTE_POINTS_NAME_WHEN_COPYING);
   }
@@ -124,7 +124,7 @@ Route Route::operator= (const Route& route2)
   {
     throw InvalidRoute(ERROR_INCORRECT_ROUTE_NUMBER_WHEN_ASSIGN);
   }
-  if ((start_ == "") || (finish_ == ""))
+  if ((start_ == "") || !isCorrectRouteName(start_) || (finish_ == "") || !isCorrectRouteName(finish_))
   {
     throw InvalidRoute(ERROR_INCORRECT_ROUTE_POINTS_NAME_WHEN_ASSIGN);
   }

@@ -29,7 +29,7 @@ int main()
   catch (const MyString& error)
   {
     std::cout << ERROR_WITH_FILE << error.get();
-    return 1;
+    return -1;
   }
   MyArray<Route> routes;
   try
@@ -39,7 +39,7 @@ int main()
   catch (const MyString& error)
   {
     std::cout << ERROR_WITH_FILE << error.get();
-    return 1;
+    return -1;
   }
   catch (InvalidInput& ex)
   {

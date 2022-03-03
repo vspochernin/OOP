@@ -5,10 +5,10 @@
 #include "ExceptionNames.h"
 #include "MyString.h"
 
-// Конструктор без параметров.
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ.
 MyString::MyString() : string_(nullptr), size_(0) {}
 
-// Конструктор с параметром (из обычной строки).
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂРѕРј (РёР· РѕР±С‹С‡РЅРѕР№ СЃС‚СЂРѕРєРё).
 MyString::MyString(const char* string)
 {
   size_t size = myStrLen(string);
@@ -23,7 +23,7 @@ MyString::MyString(const char* string)
   string_[size] = '\0';
 }
 
-// Консутрктор копирования.
+// РљРѕРЅСЃСѓС‚СЂРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ.
 MyString::MyString(const MyString& myString)
 {
   size_t size = myString.size_;
@@ -38,25 +38,25 @@ MyString::MyString(const MyString& myString)
   string_[size] = '\0';
 }
 
-// Деструктор.
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
 MyString::~MyString()
 {
   delete[] string_;
 }
 
-// Получить строку.
+// РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ.
 char* MyString::get() const
 {
   return string_;
 }
 
-// Получить размер строки.
+// РџРѕР»СѓС‡РёС‚СЊ СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё.
 size_t MyString::getSize() const
 {
   return size_;
 }
 
-// Перегрузка оператора =.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° =.
 MyString& MyString::operator=(const MyString& myString2)
 {
   if (this == &myString2)
@@ -64,7 +64,7 @@ MyString& MyString::operator=(const MyString& myString2)
     return *this;
   }
 
-  // Очистка памяти.
+  // РћС‡РёСЃС‚РєР° РїР°РјСЏС‚Рё.
   if (string_ != nullptr)
   {
     delete[] string_;
@@ -83,7 +83,7 @@ MyString& MyString::operator=(const MyString& myString2)
   return *this;
 }
 
-// Перегрузка оператора +.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° +.
 MyString MyString::operator+(const MyString& myString2) const
 {
   size_t size1 = size_;
@@ -109,7 +109,7 @@ MyString MyString::operator+(const MyString& myString2) const
   return newString;
 }
 
-// Перегрузка опретора ==.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµС‚РѕСЂР° ==.
 bool MyString::operator==(const MyString& myString2) const
 {
   if (size_ != myString2.size_)
@@ -128,7 +128,7 @@ bool MyString::operator==(const MyString& myString2) const
   return true;
 }
 
-// Перегрузка опретора !=.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµС‚РѕСЂР° !=.
 bool MyString::operator!=(const MyString& myString2) const
 {
   if (size_ != myString2.size_)
@@ -147,7 +147,7 @@ bool MyString::operator!=(const MyString& myString2) const
   return false;
 }
 
-// Перегрузка оператора [].
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° [].
 char& MyString::operator[](size_t index)
 {
   if ((index < 0) || (index >= size_))
@@ -158,39 +158,39 @@ char& MyString::operator[](size_t index)
   return string_[index];
 }
 
-// Перегрузка оператора <<. 
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° <<.
 std::ostream& operator<< (std::ostream& out, const MyString& myString)
 {
   return (out << myString.string_);
 }
 
-// Перегрузка оператора >>.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° >>.
 std::istream& operator>> (std::istream& in, MyString& myString)
 {
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
 
-  char* input = new char[256]; // Выделяем считывающей строке оверсайз памяти.
+  char* input = new char[256]; // Р’С‹РґРµР»СЏРµРј СЃС‡РёС‚С‹РІР°СЋС‰РµР№ СЃС‚СЂРѕРєРµ РѕРІРµСЂСЃР°Р№Р· РїР°РјСЏС‚Рё.
   char symbol = ' ';
-  while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // Пока впереди есть разделители - убираем их из потока.
+  while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // РџРѕРєР° РІРїРµСЂРµРґРё РµСЃС‚СЊ СЂР°Р·РґРµР»РёС‚РµР»Рё - СѓР±РёСЂР°РµРј РёС… РёР· РїРѕС‚РѕРєР°.
   {
     symbol = in.get();
   }
-  symbol = in.get(); // Будем посимвольно считывать сюда.
+  symbol = in.get(); // Р‘СѓРґРµРј РїРѕСЃРёРјРІРѕР»СЊРЅРѕ СЃС‡РёС‚С‹РІР°С‚СЊ СЃСЋРґР°.
   size_t i = 0;
-  while ((symbol != ' ') && (symbol != '\n')) // Пока мы не считали разделитель.
+  while ((symbol != ' ') && (symbol != '\n')) // РџРѕРєР° РјС‹ РЅРµ СЃС‡РёС‚Р°Р»Рё СЂР°Р·РґРµР»РёС‚РµР»СЊ.
   {
-    input[i] = symbol; // Записываем очередной символ в считывающую строку.
-    if (in.eof()) // Чтобы последний символ последней строки не считывался бесконечно.
+    input[i] = symbol; // Р—Р°РїРёСЃС‹РІР°РµРј РѕС‡РµСЂРµРґРЅРѕР№ СЃРёРјРІРѕР» РІ СЃС‡РёС‚С‹РІР°СЋС‰СѓСЋ СЃС‚СЂРѕРєСѓ.
+    if (in.eof()) // Р§С‚РѕР±С‹ РїРѕСЃР»РµРґРЅРёР№ СЃРёРјРІРѕР» РїРѕСЃР»РµРґРЅРµР№ СЃС‚СЂРѕРєРё РЅРµ СЃС‡РёС‚С‹РІР°Р»СЃСЏ Р±РµСЃРєРѕРЅРµС‡РЅРѕ.
     {
       break;
     }
-    symbol = in.get(); // И считываем очередной символ.
+    symbol = in.get(); // Р СЃС‡РёС‚С‹РІР°РµРј РѕС‡РµСЂРµРґРЅРѕР№ СЃРёРјРІРѕР».
     i++;
   }
-  input[i] = '\0'; // После того, как дошли до разделителя, записываем конечный ноль.
+  input[i] = '\0'; // РџРѕСЃР»Рµ С‚РѕРіРѕ, РєР°Рє РґРѕС€Р»Рё РґРѕ СЂР°Р·РґРµР»РёС‚РµР»СЏ, Р·Р°РїРёСЃС‹РІР°РµРј РєРѕРЅРµС‡РЅС‹Р№ РЅРѕР»СЊ.
 
-  while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // Пока впереди есть разделители - убираем их из потока.  (Конец потока ввода - Ctrl+Z!!!)
+  while ((!in.eof()) && ((in.peek() == ' ') || (in.peek() == '\n'))) // РџРѕРєР° РІРїРµСЂРµРґРё РµСЃС‚СЊ СЂР°Р·РґРµР»РёС‚РµР»Рё - СѓР±РёСЂР°РµРј РёС… РёР· РїРѕС‚РѕРєР°.  (РљРѕРЅРµС† РїРѕС‚РѕРєР° РІРІРѕРґР° - Ctrl+Z!!!)
   {
     symbol = in.get();
   }

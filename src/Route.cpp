@@ -6,12 +6,12 @@
 #include "ExceptionNames.h"
 
 #ifdef _MSC_VER
-#pragma region Конструкторы и деструктор.
+#pragma region РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂ.
 #endif
-// Конструктор без параметров.
-Route::Route() : start_(""), finish_("В парк"), number_(0) {}
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ.
+Route::Route() : start_(""), finish_("Р’ РїР°СЂРє"), number_(0) {}
 
-// Конструктор с параметрами.
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё.
 Route::Route(const MyString& start, const MyString& finish, int number) : start_(start), finish_(finish), number_(number)
 {
   if (number_ <= 0)
@@ -24,7 +24,7 @@ Route::Route(const MyString& start, const MyString& finish, int number) : start_
   }
 }
 
-// Конструктор копирования.
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ.
 Route::Route(const Route& route) : start_(route.start_), finish_(route.finish_), number_(route.number_)
 {
   if (number_ <= 0)
@@ -43,27 +43,27 @@ Route::~Route() {}
 #endif
 
 #ifdef _MSC_VER
-#pragma region Геттеры и сеттеры.
+#pragma region Р“РµС‚С‚РµСЂС‹ Рё СЃРµС‚С‚РµСЂС‹.
 #endif
-// Получить название начального пункта маршрута.
+// РџРѕР»СѓС‡РёС‚СЊ РЅР°Р·РІР°РЅРёРµ РЅР°С‡Р°Р»СЊРЅРѕРіРѕ РїСѓРЅРєС‚Р° РјР°СЂС€СЂСѓС‚Р°.
 MyString Route::getStart() const
 {
   return start_;
 }
 
-// Получить название конечного пункта маршрута.
+// РџРѕР»СѓС‡РёС‚СЊ РЅР°Р·РІР°РЅРёРµ РєРѕРЅРµС‡РЅРѕРіРѕ РїСѓРЅРєС‚Р° РјР°СЂС€СЂСѓС‚Р°.
 MyString Route::getFinish() const
 {
   return finish_;
 }
 
-// Получить номер маршрута.
+// РџРѕР»СѓС‡РёС‚СЊ РЅРѕРјРµСЂ РјР°СЂС€СЂСѓС‚Р°.
 int Route::getNumber() const
 {
   return number_;
 }
 
-// Установить название начального пункта маршрута.
+// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅР°Р·РІР°РЅРёРµ РЅР°С‡Р°Р»СЊРЅРѕРіРѕ РїСѓРЅРєС‚Р° РјР°СЂС€СЂСѓС‚Р°.
 void Route::setStart(const MyString& start)
 {
   start_ = start;
@@ -73,7 +73,7 @@ void Route::setStart(const MyString& start)
   }
 }
 
-// Установить название конечного пункта маршрута.
+// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅР°Р·РІР°РЅРёРµ РєРѕРЅРµС‡РЅРѕРіРѕ РїСѓРЅРєС‚Р° РјР°СЂС€СЂСѓС‚Р°.
 void Route::setFinish(const MyString& finish)
 {
   finish_ = finish;
@@ -83,7 +83,7 @@ void Route::setFinish(const MyString& finish)
   }
 }
 
-// Установить номер маршрута.
+// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРјРµСЂ РјР°СЂС€СЂСѓС‚Р°.
 void Route::setNumber(int number)
 {
   number_ = number;
@@ -93,11 +93,11 @@ void Route::setNumber(int number)
   }
 }
 
-// Превратить маршрут в маршрут в парк.
+// РџСЂРµРІСЂР°С‚РёС‚СЊ РјР°СЂС€СЂСѓС‚ РІ РјР°СЂС€СЂСѓС‚ РІ РїР°СЂРє.
 void Route::toThePark()
 {
   start_ = "";
-  finish_ = "В парк";
+  finish_ = "Р’ РїР°СЂРє";
   number_ = 0;
 }
 #ifdef _MSC_VER
@@ -106,9 +106,9 @@ void Route::toThePark()
 
 
 #ifdef _MSC_VER
-#pragma region Перегрузка бинарных операторов (всех, которые имеют смысл). 
+#pragma region РџРµСЂРµРіСЂСѓР·РєР° Р±РёРЅР°СЂРЅС‹С… РѕРїРµСЂР°С‚РѕСЂРѕРІ (РІСЃРµС…, РєРѕС‚РѕСЂС‹Рµ РёРјРµСЋС‚ СЃРјС‹СЃР»).
 #endif
-// Перегрузка оператора присваивания.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РїСЂРёСЃРІР°РёРІР°РЅРёСЏ.
 Route Route::operator= (const Route& route2)
 {
   if (this == &route2)
@@ -132,37 +132,37 @@ Route Route::operator= (const Route& route2)
   return *this;
 }
 
-// Перегрузка опреатора равенства.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµР°С‚РѕСЂР° СЂР°РІРµРЅСЃС‚РІР°.
 bool Route::operator==(const Route& route2) const
 {
   return ((start_ == route2.start_) && (finish_ == route2.finish_) && (number_ == route2.number_));
 }
 
-// Перегрузка опреатора неравенства.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµР°С‚РѕСЂР° РЅРµСЂР°РІРµРЅСЃС‚РІР°.
 bool Route::operator!=(const Route& route2) const
 {
   return ((start_ != route2.start_) || (finish_ != route2.finish_) || (number_ != route2.number_));
 }
 
-// Перегрузка опретора больше.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµС‚РѕСЂР° Р±РѕР»СЊС€Рµ.
 bool Route::operator>(const Route& route2) const
 {
   return (number_ > route2.number_);
 }
 
-// Перегрузка опретора меньше.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµС‚РѕСЂР° РјРµРЅСЊС€Рµ.
 bool Route::operator<(const Route& route2) const
 {
   return (number_ < route2.number_);
 }
 
-// Перегрузка опретора больше или равно.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµС‚РѕСЂР° Р±РѕР»СЊС€Рµ РёР»Рё СЂР°РІРЅРѕ.
 bool Route::operator>=(const Route& route2) const
 {
   return (number_ >= route2.number_);
 }
 
-// Перегрузка опретора меньше или равно.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїСЂРµС‚РѕСЂР° РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ.
 bool Route::operator<=(const Route& route2) const
 {
   return (number_ <= route2.number_);
@@ -172,16 +172,16 @@ bool Route::operator<=(const Route& route2) const
 #endif
 
 #ifdef _MSC_VER
-#pragma region Перегрузка ++ -- и потока.
+#pragma region РџРµСЂРµРіСЂСѓР·РєР° ++ -- Рё РїРѕС‚РѕРєР°.
 #endif
-// Перегрузка оператора префиксного инкремента.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РїСЂРµС„РёРєСЃРЅРѕРіРѕ РёРЅРєСЂРµРјРµРЅС‚Р°.
 Route Route::operator++()
 {
   number_ += 1;
   return *this;
 }
 
-// Перегрузка оператора постфиксного инкремента.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РїРѕСЃС‚С„РёРєСЃРЅРѕРіРѕ РёРЅРєСЂРµРјРµРЅС‚Р°.
 Route Route::operator++(int notused)
 {
   Route temp = Route(*this);
@@ -189,14 +189,14 @@ Route Route::operator++(int notused)
   return temp;
 }
 
-// Перегрузка оператора префиксного декремента.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РїСЂРµС„РёРєСЃРЅРѕРіРѕ РґРµРєСЂРµРјРµРЅС‚Р°.
 Route Route::operator--()
 {
   number_ -= 1;
   return *this;
 }
 
-// Перегрузка оператора постфиксного декремента.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РїРѕСЃС‚С„РёРєСЃРЅРѕРіРѕ РґРµРєСЂРµРјРµРЅС‚Р°.
 Route Route::operator--(int notused)
 {
   Route temp = Route(*this);
@@ -204,7 +204,7 @@ Route Route::operator--(int notused)
   return temp;
 }
 
-// Перегрузка оператора <<. 
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° <<.
 std::ostream& operator<< (std::ostream& out, const Route& route)
 {
   return (out << '|' << std::setw(14) << route.number_ << '|' << std::setw(15) << route.start_ << '|' << std::setw(14) << route.finish_ << '|');

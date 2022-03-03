@@ -5,7 +5,7 @@
 #include "MyExceptions.h"
 #include "ExceptionNames.h"
 
-// Заполнить массив маршрутов из файла (MyArray массив)
+// Р—Р°РїРѕР»РЅРёС‚СЊ РјР°СЃСЃРёРІ РјР°СЂС€СЂСѓС‚РѕРІ РёР· С„Р°Р№Р»Р° (MyArray РјР°СЃСЃРёРІ)
 void fillMyArrayByFile(MyArray<Route>& routes, const MyString& fileName)
 {
   std::ifstream fin;
@@ -34,11 +34,11 @@ void fillMyArrayByFile(MyArray<Route>& routes, const MyString& fileName)
   fin.close();
 }
 
-// Вывести в поток вывода таблицу маршрутов.
+// Р’С‹РІРµСЃС‚Рё РІ РїРѕС‚РѕРє РІС‹РІРѕРґР° С‚Р°Р±Р»РёС†Сѓ РјР°СЂС€СЂСѓС‚РѕРІ.
 void showRouteArray(const MyArray<Route>& routes, std::ostream& out)
 {
   out << "-----------------------------------------------" << std::endl;
-  out << "|Номер маршрута|Начало маршрута|Конец маршрута|" << std::endl;
+  out << "|РќРѕРјРµСЂ РјР°СЂС€СЂСѓС‚Р°|РќР°С‡Р°Р»Рѕ РјР°СЂС€СЂСѓС‚Р°|РљРѕРЅРµС† РјР°СЂС€СЂСѓС‚Р°|" << std::endl;
   for (size_t i = 0; i < routes.getSize(); i++)
   {
     out << routes[i] << std::endl;
@@ -46,7 +46,7 @@ void showRouteArray(const MyArray<Route>& routes, std::ostream& out)
   out << "-----------------------------------------------" << std::endl;
 }
 
-// Получить максимальный по номеру маршрут из массива.
+// РџРѕР»СѓС‡РёС‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РїРѕ РЅРѕРјРµСЂСѓ РјР°СЂС€СЂСѓС‚ РёР· РјР°СЃСЃРёРІР°.
 Route getMaxRoute(const MyArray<Route>& routes)
 {
   Route max = routes[0];
@@ -60,7 +60,7 @@ Route getMaxRoute(const MyArray<Route>& routes)
   return max;
 }
 
-// Получить минимальный по номеру маршрут из массива.
+// РџРѕР»СѓС‡РёС‚СЊ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РїРѕ РЅРѕРјРµСЂСѓ РјР°СЂС€СЂСѓС‚ РёР· РјР°СЃСЃРёРІР°.
 Route getMinRoute(const MyArray<Route>& routes)
 {
   Route min = routes[0];
@@ -75,9 +75,9 @@ Route getMinRoute(const MyArray<Route>& routes)
 }
 
 #ifdef _MSC_VER
-#pragma region Вектор пар.
+#pragma region Р’РµРєС‚РѕСЂ РїР°СЂ.
 #endif
-// Определить, есть ли в векторе пар элемент с ключем key. Если есть - положить его в переменную index.
+// РћРїСЂРµРґРµР»РёС‚СЊ, РµСЃС‚СЊ Р»Рё РІ РІРµРєС‚РѕСЂРµ РїР°СЂ СЌР»РµРјРµРЅС‚ СЃ РєР»СЋС‡РµРј key. Р•СЃР»Рё РµСЃС‚СЊ - РїРѕР»РѕР¶РёС‚СЊ РµРіРѕ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ index.
 bool indexOfKey(const std::vector<std::pair<MyString, int>>& pairs, const MyString& key, size_t& index)
 {
   for (size_t i = 0; i < pairs.size(); i++)
@@ -92,28 +92,28 @@ bool indexOfKey(const std::vector<std::pair<MyString, int>>& pairs, const MyStri
   return false;
 }
 
-// Сортировка вектора пар по значению.
+// РЎРѕСЂС‚РёСЂРѕРІРєР° РІРµРєС‚РѕСЂР° РїР°СЂ РїРѕ Р·РЅР°С‡РµРЅРёСЋ.
 void sortPairs(std::vector<std::pair<MyString, int>>& pairs)
 {
-  // Массив из 1 или 0 элементов уже отсортирован.
+  // РњР°СЃСЃРёРІ РёР· 1 РёР»Рё 0 СЌР»РµРјРµРЅС‚РѕРІ СѓР¶Рµ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅ.
   if (pairs.size() <= 1)
   {
     return;
   }
-  for (int i = 1; i < static_cast<int>(pairs.size()); i++) // Для каждого следующего неотсортированного элемента найдем его место.
+  for (int i = 1; i < static_cast<int>(pairs.size()); i++) // Р”Р»СЏ РєР°Р¶РґРѕРіРѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РЅРµРѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РЅР°Р№РґРµРј РµРіРѕ РјРµСЃС‚Рѕ.
   {
     std::pair<MyString, int> temp = pairs[i];
     int j = 0;
-    for (j = i - 1; (j >= 0) && pairs[j].second < temp.second; j--) // Для элементов левее первого неотсортированного, пока они больше его...
+    for (j = i - 1; (j >= 0) && pairs[j].second < temp.second; j--) // Р”Р»СЏ СЌР»РµРјРµРЅС‚РѕРІ Р»РµРІРµРµ РїРµСЂРІРѕРіРѕ РЅРµРѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ, РїРѕРєР° РѕРЅРё Р±РѕР»СЊС€Рµ РµРіРѕ...
     {
-      // Сдвигаем их вправо.
+      // РЎРґРІРёРіР°РµРј РёС… РІРїСЂР°РІРѕ.
       pairs[j + 1] = pairs[j];
     }
-    pairs[j + 1] = temp; // Ставим первый неотсортированный элемент на своё место.
+    pairs[j + 1] = temp; // РЎС‚Р°РІРёРј РїРµСЂРІС‹Р№ РЅРµРѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ РЅР° СЃРІРѕС‘ РјРµСЃС‚Рѕ.
   }
 }
 
-// Заполнить вектор пар из массива MyArray.
+// Р—Р°РїРѕР»РЅРёС‚СЊ РІРµРєС‚РѕСЂ РїР°СЂ РёР· РјР°СЃСЃРёРІР° MyArray.
 void setPairs(std::vector<std::pair<MyString, int>>& pairs, const MyArray<Route>& routes)
 {
   size_t index = 0;
@@ -130,11 +130,11 @@ void setPairs(std::vector<std::pair<MyString, int>>& pairs, const MyArray<Route>
   }
 }
 
-// Вывести вектор пар в поток ввода.
+// Р’С‹РІРµСЃС‚Рё РІРµРєС‚РѕСЂ РїР°СЂ РІ РїРѕС‚РѕРє РІРІРѕРґР°.
 void showPairs(const std::vector<std::pair<MyString, int>>& pairs, std::ostream& out)
 {
   out << "-------------------------------" << std::endl;
-  out << "|Конец маршрута|Число машрутов|" << std::endl;
+  out << "|РљРѕРЅРµС† РјР°СЂС€СЂСѓС‚Р°|Р§РёСЃР»Рѕ РјР°С€СЂСѓС‚РѕРІ|" << std::endl;
   for (size_t i = 0; i < pairs.size(); i++)
   {
     out << "|" << std::setw(14) << pairs[i].first << "|" << std::setw(14) << pairs[i].second << "|" << std::endl;
@@ -146,9 +146,9 @@ void showPairs(const std::vector<std::pair<MyString, int>>& pairs, std::ostream&
 #endif
 
 #ifdef _MSC_VER
-#pragma region Функции для строк.
+#pragma region Р¤СѓРЅРєС†РёРё РґР»СЏ СЃС‚СЂРѕРє.
 #endif
-// Вычисление длины строки (массив char).
+// Р’С‹С‡РёСЃР»РµРЅРёРµ РґР»РёРЅС‹ СЃС‚СЂРѕРєРё (РјР°СЃСЃРёРІ char).
 size_t myStrLen(const char* string)
 {
   size_t i = 0;
@@ -159,7 +159,7 @@ size_t myStrLen(const char* string)
   return i;
 }
 
-// Определить, корректно ли задано название начала или конца маршрута?.
+// РћРїСЂРµРґРµР»РёС‚СЊ, РєРѕСЂСЂРµРєС‚РЅРѕ Р»Рё Р·Р°РґР°РЅРѕ РЅР°Р·РІР°РЅРёРµ РЅР°С‡Р°Р»Р° РёР»Рё РєРѕРЅС†Р° РјР°СЂС€СЂСѓС‚Р°?.
 bool isCorrectRouteName(const MyString& string)
 {
   if (string.getSize() < 2)
@@ -168,15 +168,15 @@ bool isCorrectRouteName(const MyString& string)
   }
 
   int ch = static_cast<int>(string.get()[0]);
-  int leftBorder = static_cast<int>('А');
-  int rightBorder = static_cast<int>('Я');
+  int leftBorder = static_cast<int>('Рђ');
+  int rightBorder = static_cast<int>('РЇ');
   if (((ch < leftBorder) || (ch > rightBorder)))
   {
     return false;
   }
 
-  leftBorder = static_cast<int>('а');
-  rightBorder = static_cast<int>('я');
+  leftBorder = static_cast<int>('Р°');
+  rightBorder = static_cast<int>('СЏ');
   for (size_t i = 1; i < string.getSize(); i++)
   {
     ch = static_cast<int>(string.get()[i]);
@@ -189,11 +189,11 @@ bool isCorrectRouteName(const MyString& string)
   return true;
 }
 
-// Определение количества слов в строке.
+// РћРїСЂРµРґРµР»РµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° СЃР»РѕРІ РІ СЃС‚СЂРѕРєРµ.
 int countOfWords(const char* string)
 {
   int result = 0;
-  bool isWord = false; // Проверка, записывается ли сейчас слово.
+  bool isWord = false; // РџСЂРѕРІРµСЂРєР°, Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ Р»Рё СЃРµР№С‡Р°СЃ СЃР»РѕРІРѕ.
   for (size_t i = 0; i < myStrLen(string); i++)
   {
     if (string[i] == ' ')
@@ -214,7 +214,7 @@ int countOfWords(const char* string)
 #pragma endregion
 #endif
 
-// Проверить, корректная ли структура файла.
+// РџСЂРѕРІРµСЂРёС‚СЊ, РєРѕСЂСЂРµРєС‚РЅР°СЏ Р»Рё СЃС‚СЂСѓРєС‚СѓСЂР° С„Р°Р№Р»Р°.
 bool isCorrectFileStructure(const MyString& fileName, size_t countOfLines)
 {
   std::ifstream fin;

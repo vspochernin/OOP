@@ -1,7 +1,7 @@
 #ifndef MY_EXCEPTIONS
 #define MY_EXCEPTIONS
 
-// Классы исключений.
+// РљР»Р°СЃСЃС‹ РёСЃРєР»СЋС‡РµРЅРёР№.
 
 #include <exception>
 #include "MyString.h"

@@ -9,50 +9,50 @@ template <typename Data>
 class MyArray
 {
 public:
-  // Конструктор без параметров.
+  // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ.
   MyArray() : size_(0), data_(nullptr) {}
 
-  // Конструктор с параметрами.
+  // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё.
   MyArray(size_t size) : size_(size), data_(new Data[size]) {}
 
-  // Конструктор копирования.
+  // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ.
   MyArray(const MyArray<Data>& array2);
 
-  // Конструктор копирования с переносом.
+  // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ СЃ РїРµСЂРµРЅРѕСЃРѕРј.
   MyArray(MyArray<Data>&& array2) noexcept;
 
-  // Деструктор.
+  // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
   ~MyArray()
   {
     delete[] data_;
   }
 
-  // Получить размер массива.
+  // РџРѕР»СѓС‡РёС‚СЊ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°.
   size_t getSize() const;
 
-  // Заново выделить память у массива (при этом данные пропадают).
+  // Р—Р°РЅРѕРІРѕ РІС‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ Сѓ РјР°СЃСЃРёРІР° (РїСЂРё СЌС‚РѕРј РґР°РЅРЅС‹Рµ РїСЂРѕРїР°РґР°СЋС‚).
   void reAllocate(size_t size);
 
-  // Метод добавления элемента в массив.
+  // РњРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІ.
   void pushBack(const Data& object);
 
-  // Перегрузка оператора [].
+  // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° [].
   Data& operator[](size_t index) const;
 
-  // Перегрузка оператора =.
+  // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° =.
   MyArray<Data>& operator=(const MyArray<Data>& array2);
 
-  // Перегрузка оператора +.
+  // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° +.
   MyArray<Data> operator+(const MyArray<Data>& array2);
 
-  // Перегрузка оператора = с переносом.
+  // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° = СЃ РїРµСЂРµРЅРѕСЃРѕРј.
   MyArray<Data>& operator=(MyArray<Data>&& array2) noexcept;
 private:
   size_t size_;
   Data* data_;
 };
 
-// Конструктор копирования.
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ.
 template <typename Data>
 MyArray<Data>::MyArray(const MyArray<Data>& array2)
 {
@@ -72,7 +72,7 @@ MyArray<Data>::MyArray(const MyArray<Data>& array2)
   }
 }
 
-// Конструктор копирования с переносом.
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ СЃ РїРµСЂРµРЅРѕСЃРѕРј.
 template <typename Data>
 MyArray<Data>::MyArray(MyArray<Data>&& array2) noexcept
 {
@@ -82,7 +82,7 @@ MyArray<Data>::MyArray(MyArray<Data>&& array2) noexcept
   array2.data_ = nullptr;
 }
 
-// Перегрузка оператора [].
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° [].
 template <typename Data>
 Data& MyArray<Data>::operator[](size_t index) const
 {
@@ -94,14 +94,14 @@ Data& MyArray<Data>::operator[](size_t index) const
   return data_[index];
 }
 
-// Получить размер массива.
+// РџРѕР»СѓС‡РёС‚СЊ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°.
 template <typename Data>
 size_t MyArray<Data>::getSize() const
 {
   return size_;
 }
 
-// Заново выделить память у массива (при этом данные пропадают).
+// Р—Р°РЅРѕРІРѕ РІС‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ Сѓ РјР°СЃСЃРёРІР° (РїСЂРё СЌС‚РѕРј РґР°РЅРЅС‹Рµ РїСЂРѕРїР°РґР°СЋС‚).
 template <typename Data>
 void MyArray<Data>::reAllocate(size_t size)
 {
@@ -114,7 +114,7 @@ void MyArray<Data>::reAllocate(size_t size)
   data_ = new Data[size];
 }
 
-// Метод добавления элемента в массив.
+// РњРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІ.
 template <typename Data>
 void MyArray<Data>::pushBack(const Data& object)
 {
@@ -130,7 +130,7 @@ void MyArray<Data>::pushBack(const Data& object)
   size_ = size_ + 1;
 }
 
-// Перегрузка оператора =.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° =.
 template <typename Data>
 MyArray<Data>& MyArray<Data>::operator=(const MyArray<Data>& array2)
 {
@@ -153,7 +153,7 @@ MyArray<Data>& MyArray<Data>::operator=(const MyArray<Data>& array2)
   return *this;
 }
 
-// Перегрузка оператора +.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° +.
 template <typename Data>
 MyArray<Data> MyArray<Data>::operator+(const MyArray<Data>& array2)
 {
@@ -167,11 +167,11 @@ MyArray<Data> MyArray<Data>::operator+(const MyArray<Data>& array2)
     temp.data_[size_ + i] = array2.data_[i];
   }
 
-  return temp; 
+  return temp;
 }
 
 
-// Перегрузка оператора = с переносом.
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° = СЃ РїРµСЂРµРЅРѕСЃРѕРј.
 template <typename Data>
 MyArray<Data>& MyArray<Data>::operator=(MyArray<Data>&& array2) noexcept
 {

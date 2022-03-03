@@ -1,5 +1,5 @@
-// Почернин Владислав Сергеевич.
-// Вариант 11.
+// РџРѕС‡РµСЂРЅРёРЅ Р’Р»Р°РґРёСЃР»Р°РІ РЎРµСЂРіРµРµРІРёС‡.
+// Р’Р°СЂРёР°РЅС‚ 11.
 
 #include <iostream>
 #include <fstream>
@@ -47,20 +47,20 @@ int main()
     return 1;
   }
 
-  fout << "Изначальный массив:" << std::endl;
+  fout << "РР·РЅР°С‡Р°Р»СЊРЅС‹Р№ РјР°СЃСЃРёРІ:" << std::endl;
   showRouteArray(routes, fout);
 
-  fout << std::endl << "Максимальный номер маршрута: " << getMaxRoute(routes).getNumber();
-  fout << std::endl << "Минимальный номер маршрута: " << getMinRoute(routes).getNumber() << std::endl << std::endl;
+  fout << std::endl << "РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РЅРѕРјРµСЂ РјР°СЂС€СЂСѓС‚Р°: " << getMaxRoute(routes).getNumber();
+  fout << std::endl << "РњРёРЅРёРјР°Р»СЊРЅС‹Р№ РЅРѕРјРµСЂ РјР°СЂС€СЂСѓС‚Р°: " << getMinRoute(routes).getNumber() << std::endl << std::endl;
 
   sortMyArray(routes);
-  fout << "Массив после сортировки:" << std::endl;
+  fout << "РњР°СЃСЃРёРІ РїРѕСЃР»Рµ СЃРѕСЂС‚РёСЂРѕРІРєРё:" << std::endl;
   showRouteArray(routes, fout);
 
   std::vector<std::pair<MyString, int>> pairs;
   setPairs(pairs, routes);
   sortPairs(pairs);
-  fout << std::endl << "Список названий конечных пунктов маршрутов и числа маршрутов, ведущих в них в порядке убывания числа маршрутов:" << std::endl;
+  fout << std::endl << "РЎРїРёСЃРѕРє РЅР°Р·РІР°РЅРёР№ РєРѕРЅРµС‡РЅС‹С… РїСѓРЅРєС‚РѕРІ РјР°СЂС€СЂСѓС‚РѕРІ Рё С‡РёСЃР»Р° РјР°СЂС€СЂСѓС‚РѕРІ, РІРµРґСѓС‰РёС… РІ РЅРёС… РІ РїРѕСЂСЏРґРєРµ СѓР±С‹РІР°РЅРёСЏ С‡РёСЃР»Р° РјР°СЂС€СЂСѓС‚РѕРІ:" << std::endl;
   showPairs(pairs, fout);
 
   fout.close();
